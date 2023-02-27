@@ -68,7 +68,13 @@ local config = {
         -- end,
 
         -- Set dashboard header
-        header = {},
+        header = {
+                "██████████████████████████████████████████████████████████████████████████",
+                "██                                                                      ██",
+                "██  IF YOU WANT IMMEDIATE FEEDBACK, ALWAYS MAKE CHANGES IN PRODUCTION.  ██",
+                "██                                                                      ██",
+                "██████████████████████████████████████████████████████████████████████████",
+        },
         -- Default theme configuration
         default_theme = {
                 -- Modify the color palette for the default theme
