@@ -350,6 +350,20 @@ local config = {
         -- augroups/autocommands and custom filetypes also this just pure lua so
         -- anything that doesn't fit in the normal config locations above can go here
         polish = function()
+                require('lspconfig').pylsp.setup {
+                        settings = {
+                                pylsp = {
+                                        plugins = {
+                                                pycodestyle = {
+                                                        ignore = { "E501" },
+                                                },
+                                                flake8 = {
+                                                        ignore = { "E501" },
+                                                }
+                                        }
+                                }
+                        }
+                }
                 -- Set up custom filetypes
                 -- vim.filetype.add {
                 --   extension = {
@@ -364,5 +378,7 @@ local config = {
                 -- }
         end,
 }
+
+
 
 return config

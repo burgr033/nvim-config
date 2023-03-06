@@ -45,7 +45,6 @@ local colors = {
   purple = "#c678dd",
   purple_1 = "#a9a1e1",
   purple_2 = "#c2bdea",
-
   -- icon colors
   c = "#519aba",
   css = "#61afef",
