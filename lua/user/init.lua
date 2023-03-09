@@ -350,6 +350,12 @@ local config = {
         -- augroups/autocommands and custom filetypes also this just pure lua so
         -- anything that doesn't fit in the normal config locations above can go here
         polish = function()
+                vim.api.nvim_create_user_command("InitDefaultMason",
+                        "MasonInstall codelldb gitlint intelephense json-lsp jsonlint lemminx lua-language-server php-debug-adapter phpstan python-lsp-server rust-analyzer rustfmt selene xmlformatter yaml-language-server yamlfmt yamllint",
+                        { desc = "Init my default mason packages" })
+                vim.api.nvim_create_user_command("InitDefaultTreeSitter",
+                        "TSInstall gitcommit html javascript lua php python rust vim bash dockerfile markdown make json toml yaml",
+                        { desc = "Init my default TS packages" })
                 require('lspconfig').pylsp.setup {
                         settings = {
                                 pylsp = {
