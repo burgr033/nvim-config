@@ -5,12 +5,12 @@ return {
     opts = function(_, opts)
       -- customize the dashboard header
       opts.section.header.val = {
-                "██████████████████████████████████████████████████████████████████████████",
-                "██                                                                      ██",
-                "██  IF YOU WANT IMMEDIATE FEEDBACK, ALWAYS MAKE CHANGES IN PRODUCTION.  ██",
-                "██                                                                      ██",
-                "██████████████████████████████████████████████████████████████████████████",
-	}
+        "██████████████████████████████████████████████████████████████████████████",
+        "██                                                                      ██",
+        "██  IF YOU WANT IMMEDIATE FEEDBACK, ALWAYS MAKE CHANGES IN PRODUCTION.  ██",
+        "██                                                                      ██",
+        "██████████████████████████████████████████████████████████████████████████",
+      }
       return opts
     end,
   },

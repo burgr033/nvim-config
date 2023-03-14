@@ -13,4 +13,17 @@ return {
 		"skywind3000/asyncrun.vim",
 		lazy = false,
 	},
+	{
+		"natecraddock/workspaces.nvim",
+		lazy = false,
+		config = function()
+			require("workspaces").setup(
+				{
+					hooks = {
+						open = { "Telescope find_files" },
+					}
+				}
+			)
+		end,
+	},
 }
