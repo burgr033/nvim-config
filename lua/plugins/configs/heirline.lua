@@ -25,9 +25,9 @@ return function(_, opts)
     local DiagnosticHint = get_hlgroup("DiagnosticHint", { fg = C.bright_yellow, bg = C.dark_bg })
     local HeirlineInactive = get_hlgroup("HeirlineInactive", { bg = nil }).bg
         or status.hl.lualine_mode("inactive", C.dark_grey)
-    local HeirlineNormal = get_hlgroup("HeirlineNormal", { bg = nil }).bg or status.hl.lualine_mode("n", C.blue)
-    local HeirlineInsert = get_hlgroup("HeirlineInsert", { bg = nil }).bg or status.hl.lualine_mode("i", C.green)
-    local HeirlineVisual = get_hlgroup("HeirlineVisual", { bg = nil }).bg or status.hl.lualine_mode("v", C.purple)
+    local HeirlineNormal = get_hlgroup("HeirlineNormal", { bg = nil }).bg or status.hl.lualine_mode("normal", C.blue)
+    local HeirlineInsert = get_hlgroup("HeirlineInsert", { bg = nil }).bg or status.hl.lualine_mode("insert", C.green)
+    local HeirlineVisual = get_hlgroup("HeirlineVisual", { bg = nil }).bg or status.hl.lualine_mode("visual", C.purple)
     local HeirlineReplace = get_hlgroup("HeirlineReplace", { bg = nil }).bg
         or status.hl.lualine_mode("replace", C.bright_red)
     local HeirlineCommand = get_hlgroup("HeirlineCommand", { bg = nil }).bg
