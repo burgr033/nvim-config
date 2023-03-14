@@ -21,15 +21,15 @@ return {
     local button = require("astronvim.utils").alpha_button
     dashboard.section.buttons.val = {
       button("LDR n", "  New File  "),
-      button("LDR f f", "  Find File  "),
+      button("LDR f p", "  Projects  "),
       button("LDR f o", "  Recents  "),
+      button("LDR f f", "  Find File  "),
       button("LDR f w", "  Find Word  "),
-      button("LDR f '", "  Bookmarks  "),
       button("LDR S l", "  Last Session  "),
     }
 
     dashboard.section.footer.val =
-      { " ", " ", " ", "AstroNvim loaded " .. require("lazy").stats().count .. " plugins " }
+    { " ", " ", " ", "AstroNvim loaded " .. require("lazy").stats().count .. " plugins " }
     dashboard.section.footer.opts.hl = "DashboardFooter"
 
     dashboard.config.layout[1].val = vim.fn.max { 2, vim.fn.floor(vim.fn.winheight(0) * 0.2) }
