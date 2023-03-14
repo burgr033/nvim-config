@@ -78,6 +78,9 @@ return {
   -- Configure require("lazy").setup() options
   lazy = {
     defaults = { lazy = true },
+    change_detection = {
+      enabled = false
+    },
     performance = {
       rtp = {
         -- customize default disabled vim plugins

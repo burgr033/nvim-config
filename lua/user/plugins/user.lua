@@ -11,11 +11,11 @@ return {
 	-- },
 	{
 		"skywind3000/asyncrun.vim",
-		lazy = false,
+		cmd = "AsyncRun"
 	},
 	{
 		"natecraddock/workspaces.nvim",
-		lazy = false,
+		cmd = "Telescope workspaces",
 		config = function()
 			require("workspaces").setup(
 				{

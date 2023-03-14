@@ -73,12 +73,12 @@ return {
         end
 
         return (filetype == "" or buftype == "nofile") and "indent" -- only use indent until a file is opened
-          or function(bufnr)
-            return require("ufo")
-              .getFolds(bufnr, "lsp")
-              :catch(function(err) return handleFallbackException(bufnr, err, "treesitter") end)
-              :catch(function(err) return handleFallbackException(bufnr, err, "indent") end)
-          end
+            or function(bufnr)
+              return require("ufo")
+                  .getFolds(bufnr, "lsp")
+                  :catch(function(err) return handleFallbackException(bufnr, err, "treesitter") end)
+                  :catch(function(err) return handleFallbackException(bufnr, err, "indent") end)
+            end
       end,
     },
   },
@@ -86,7 +86,8 @@ return {
     "numToStr/Comment.nvim",
     keys = { { "gc", mode = { "n", "v" } }, { "gb", mode = { "n", "v" } } },
     opts = function()
-      return { pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook() }
+      local commentstring_avail, commentstring = pcall(require, "ts_context_commentstring.integrations.comment_nvim")
+      return commentstring_avail and commentstring and { pre_hook = commentstring.create_pre_hook() } or {}
     end,
   },
   {
