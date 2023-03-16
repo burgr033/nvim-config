@@ -24,16 +24,16 @@ return function(_, opts)
     local DiagnosticInfo = get_hlgroup("DiagnosticInfo", { fg = C.white, bg = C.dark_bg })
     local DiagnosticHint = get_hlgroup("DiagnosticHint", { fg = C.bright_yellow, bg = C.dark_bg })
     local HeirlineInactive = get_hlgroup("HeirlineInactive", { bg = nil }).bg
-        or status.hl.lualine_mode("inactive", C.dark_grey)
+      or status.hl.lualine_mode("inactive", C.dark_grey)
     local HeirlineNormal = get_hlgroup("HeirlineNormal", { bg = nil }).bg or status.hl.lualine_mode("normal", C.blue)
     local HeirlineInsert = get_hlgroup("HeirlineInsert", { bg = nil }).bg or status.hl.lualine_mode("insert", C.green)
     local HeirlineVisual = get_hlgroup("HeirlineVisual", { bg = nil }).bg or status.hl.lualine_mode("visual", C.purple)
     local HeirlineReplace = get_hlgroup("HeirlineReplace", { bg = nil }).bg
-        or status.hl.lualine_mode("replace", C.bright_red)
+      or status.hl.lualine_mode("replace", C.bright_red)
     local HeirlineCommand = get_hlgroup("HeirlineCommand", { bg = nil }).bg
-        or status.hl.lualine_mode("command", C.bright_yellow)
+      or status.hl.lualine_mode("command", C.bright_yellow)
     local HeirlineTerminal = get_hlgroup("HeirlineTerminal", { bg = nil }).bg
-        or status.hl.lualine_mode("insert", HeirlineInsert)
+      or status.hl.lualine_mode("insert", HeirlineInsert)
 
     local colors = astronvim.user_opts("heirline.colors", {
       close_fg = Error.fg,
@@ -115,15 +115,5 @@ return function(_, opts)
     group = augroup,
     desc = "Refresh heirline colors",
     callback = function() require("heirline.utils").on_colorscheme(setup_colors()) end,
-  })
-  vim.api.nvim_create_autocmd("User", {
-    pattern = "HeirlineInitWinbar",
-    group = augroup,
-    desc = "Disable winbar for some filetypes",
-    callback = function()
-      if vim.opt.diff:get() or status.condition.buffer_matches(require("heirline").winbar.disabled or {}) then
-        vim.opt_local.winbar = nil
-      end
-    end,
   })
 end

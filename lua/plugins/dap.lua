@@ -1,5 +1,6 @@
 return {
   "mfussenegger/nvim-dap",
+  enabled = vim.fn.has "win32" == 1,
   dependencies = {
     {
       "jay-babu/mason-nvim-dap.nvim",

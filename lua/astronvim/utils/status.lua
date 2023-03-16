@@ -235,7 +235,8 @@ function M.init.breadcrumbs(opts)
       if i > start_idx then
         local child = {
           { provider = string.gsub(d.name, "%%", "%%%%"):gsub("%s*->%s*", "") }, -- add symbol name
-          on_click = { -- add on click function
+          on_click = {
+            -- add on click function
             minwid = M.utils.encode_pos(d.lnum, d.col, self.winnr),
             callback = function(_, minwid)
               local lnum, col, winnr = M.utils.decode_pos(minwid)
@@ -381,9 +382,9 @@ function M.provider.foldcolumn(opts)
   local foldopen = fillchars.foldopen or get_icon "FoldOpened"
   local foldclosed = fillchars.foldclose or get_icon "FoldClosed"
   local foldsep = fillchars.foldsep or get_icon "FoldSeparator"
-  return function() -- move to M.provider.fold_indicator
+  return function()                                            -- move to M.provider.fold_indicator
     local wp = ffi.C.find_window_by_handle(0, ffi.new "Error") -- get window handler
-    local width = ffi.C.compute_foldcolumn(wp, 0) -- get foldcolumn width
+    local width = ffi.C.compute_foldcolumn(wp, 0)              -- get foldcolumn width
     -- get fold info of current line
     local foldinfo = width > 0 and ffi.C.fold_info(wp, vim.v.lnum) or { start = 0, level = 0, llevel = 0, lines = 0 }
 
@@ -399,11 +400,11 @@ function M.provider.foldcolumn(opts)
 
         for col = 1, width do
           str = str
-            .. (
+              .. (
               ((closed and (col == foldinfo.level or col == width)) and foldclosed)
               or ((foldinfo.start == vim.v.lnum and first_level + col > foldinfo.llevel) and foldopen)
               or foldsep
-            )
+              )
           if col == foldinfo.level then
             str = str .. (" "):rep(width - col)
             break
@@ -464,7 +465,7 @@ end
 -- @see astronvim.utils.status.utils.stylize
 function M.provider.search_count(opts)
   local search_func = vim.tbl_isempty(opts or {}) and function() return vim.fn.searchcount() end
-    or function() return vim.fn.searchcount(opts) end
+      or function() return vim.fn.searchcount(opts) end
   return function()
     local search_ok, search = pcall(search_func)
     if search_ok and type(search) == "table" and search.total then
@@ -511,15 +512,15 @@ end
 -- @usage local heirline_component = { provider = require("astronvim.utils.status").provider.percentage() }
 -- @see astronvim.utils.status.utils.stylize
 function M.provider.percentage(opts)
-  opts = extend_tbl({ escape = false, fixed_width = false, edge_text = true }, opts)
+  opts = extend_tbl({ escape = false, fixed_width = true, edge_text = true }, opts)
   return function()
-    local text = "%" .. (opts.fixed_width and "3" or "") .. "p%%"
+    local text = "%" .. (opts.fixed_width and (opts.edge_text and "2" or "3") or "") .. "p%%"
     if opts.edge_text then
       local current_line = vim.fn.line "."
       if current_line == 1 then
-        text = (opts.fixed_width and " " or "") .. "Top"
+        text = "Top"
       elseif current_line == vim.fn.line "$" then
-        text = (opts.fixed_width and " " or "") .. "Bot"
+        text = "Bot"
       end
     end
     return M.utils.stylize(text, opts)
@@ -532,8 +533,8 @@ end
 -- @usage local heirline_component = { provider = require("astronvim.utils.status").provider.ruler({ pad_ruler = { line = 3, char = 2 } }) }
 -- @see astronvim.utils.status.utils.stylize
 function M.provider.ruler(opts)
-  opts = extend_tbl({ pad_ruler = { line = 0, char = 0 } }, opts)
-  local padding_str = string.format("%%%dd:%%%dd", opts.pad_ruler.line, opts.pad_ruler.char)
+  opts = extend_tbl({ pad_ruler = { line = 3, char = 2 } }, opts)
+  local padding_str = string.format("%%%dd:%%-%dd", opts.pad_ruler.line, opts.pad_ruler.char)
   return function()
     local line = vim.fn.line "."
     local char = vim.fn.virtcol "."
@@ -639,9 +640,9 @@ function M.provider.unique_path(opts)
     end
     return M.utils.stylize(
       (
-        opts.max_length > 0
-        and #unique_path > opts.max_length
-        and string.sub(unique_path, 1, opts.max_length - 2) .. get_icon "Ellipsis" .. "/"
+      opts.max_length > 0
+      and #unique_path > opts.max_length
+      and string.sub(unique_path, 1, opts.max_length - 2) .. get_icon "Ellipsis" .. "/"
       ) or unique_path,
       opts
     )
@@ -735,16 +736,16 @@ function M.provider.lsp_progress(opts)
     local Lsp = vim.lsp.util.get_progress_messages()[1]
     return M.utils.stylize(
       Lsp
-        and (
-          get_icon("LSP" .. ((Lsp.percentage or 0) >= 70 and { "Loaded", "Loaded", "Loaded" } or {
-            "Loading1",
-            "Loading2",
-            "Loading3",
-          })[math.floor(vim.loop.hrtime() / 12e7) % 3 + 1])
-          .. (Lsp.title and " " .. Lsp.title or "")
-          .. (Lsp.message and " " .. Lsp.message or "")
-          .. (Lsp.percentage and " (" .. Lsp.percentage .. "%)" or "")
-        ),
+      and (
+      get_icon("LSP" .. ((Lsp.percentage or 0) >= 70 and { "Loaded", "Loaded", "Loaded" } or {
+        "Loading1",
+        "Loading2",
+        "Loading3",
+      })[math.floor(vim.loop.hrtime() / 12e7) % 3 + 1])
+      .. (Lsp.title and " " .. Lsp.title or "")
+      .. (Lsp.message and " " .. Lsp.message or "")
+      .. (Lsp.percentage and " (" .. Lsp.percentage .. "%)" or "")
+      ),
       opts
     )
   end
@@ -935,8 +936,10 @@ function M.utils.stylize(str, opts)
   local icon = M.pad_string(get_icon(opts.icon.kind), opts.icon.padding)
   return str
       and (str ~= "" or opts.show_empty)
-      and opts.separator.left .. M.pad_string(icon .. (opts.escape and escape(str) or str), opts.padding) .. opts.separator.right
-    or ""
+      and
+      opts.separator.left ..
+      M.pad_string(icon .. (opts.escape and escape(str) or str), opts.padding) .. opts.separator.right
+      or ""
 end
 
 --- A Heirline component for filling in the empty space of the bar
@@ -1026,7 +1029,11 @@ function M.component.cmd_info(opts)
     macro_recording = {
       icon = { kind = "MacroRecording", padding = { right = 1 } },
       condition = M.condition.is_macro_recording,
-      update = { "RecordingEnter", "RecordingLeave" },
+      update = {
+        "RecordingEnter",
+        "RecordingLeave",
+        callback = vim.schedule_wrap(function() vim.cmd.redrawstatus() end),
+      },
     },
     search_count = {
       icon = { kind = "Search", padding = { right = 1 } },
@@ -1055,7 +1062,11 @@ function M.component.mode(opts)
     spell = false,
     surround = { separator = "left", color = M.hl.mode_bg },
     hl = M.hl.get_attributes "mode",
-    update = "ModeChanged",
+    update = {
+      "ModeChanged",
+      pattern = "*:*",
+      callback = vim.schedule_wrap(function() vim.cmd.redrawstatus() end),
+    },
   }, opts)
   if not opts["mode_text"] then opts.str = { str = " " } end
   return M.component.builder(M.utils.setup_providers(opts, { "mode_text", "str", "paste", "spell" }))
@@ -1178,7 +1189,7 @@ end
 -- @usage local heirline_component = require("astronvim.utils.status").component.treesitter()
 function M.component.treesitter(opts)
   opts = extend_tbl({
-    str = { str = "TS", icon = { kind = "ActiveTS" } },
+    str = { str = "TS", icon = { kind = "ActiveTS", padding = { right = 1 } } },
     surround = {
       separator = "right",
       color = "treesitter_bg",
@@ -1227,7 +1238,7 @@ function M.component.lsp(opts)
               M.utils.build_provider(p_opts, M.provider[provider](p_opts)),
               M.utils.build_provider(p_opts, M.provider.str(p_opts)),
             }
-          or false
+            or false
       end
     )
   )
@@ -1312,10 +1323,10 @@ function M.component.builder(opts)
   end
   for key, entry in pairs(opts) do
     if
-      type(key) == "number"
-      and type(entry) == "table"
-      and M.provider[entry.provider]
-      and (entry.opts == nil or type(entry.opts) == "table")
+        type(key) == "number"
+        and type(entry) == "table"
+        and M.provider[entry.provider]
+        and (entry.opts == nil or type(entry.opts) == "table")
     then
       entry.provider = M.provider[entry.provider](entry.opts)
     end
@@ -1326,7 +1337,7 @@ function M.component.builder(opts)
   end
   return opts.surround
       and M.utils.surround(opts.surround.separator, opts.surround.color, children, opts.surround.condition)
-    or children
+      or children
 end
 
 --- Convert a component parameter table to a table that can be used with the component builder
@@ -1343,7 +1354,7 @@ function M.utils.build_provider(opts, provider, _)
         update = opts.update,
         hl = opts.hl,
       }
-    or false
+      or false
 end
 
 --- Convert key/value table of options to an array of providers for the component builder
@@ -1519,14 +1530,17 @@ M.heirline.make_buflist = function(component)
           right = "tabline_bg",
         }
       end,
-      { -- bufferlist
+      {
+        -- bufferlist
         init = function(self) self.tab_type = M.heirline.tab_type(self) end,
-        on_click = { -- add clickable component to each buffer
+        on_click = {
+          -- add clickable component to each buffer
           callback = function(_, minwid) vim.api.nvim_win_set_buf(0, minwid) end,
           minwid = function(self) return self.bufnr end,
           name = "heirline_tabline_buffer_callback",
         },
-        { -- add buffer picker functionality to each buffer
+        {
+          -- add buffer picker functionality to each buffer
           condition = function(self) return self._show_picker end,
           update = false,
           init = function(self)
@@ -1548,12 +1562,12 @@ M.heirline.make_buflist = function(component)
         },
         component, -- create buffer component
       },
-      false -- disable surrounding
+      false        -- disable surrounding
     ),
     { provider = get_icon "ArrowLeft" .. " ", hl = overflow_hl },
     { provider = get_icon "ArrowRight" .. " ", hl = overflow_hl },
     function() return vim.t.bufs end, -- use astronvim bufs variable
-    false -- disable internal caching
+    false                             -- disable internal caching
   )
 end
 
