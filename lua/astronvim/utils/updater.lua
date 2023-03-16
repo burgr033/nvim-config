@@ -76,7 +76,7 @@ end
 -- @param quiet boolean to quietly execute or send a notification
 -- @return the current AstroNvim version string
 function M.version(quiet)
-  local version = astronvim.install.version or git.current_version(false)
+  local version = astronvim.install.version or git.current_version(false) or unkown
   if astronvim.updater.options.channel ~= "stable" then version = ("nightly (%s)"):format(version) end
   if version and not quiet then notify("Version: " .. version) end
   return version
@@ -278,7 +278,7 @@ function M.update(opts)
     end
     -- if update was unsuccessful throw an error
     if not updated then
-      vim.api.nvim_err_writeln "Error ocurred performing update"
+      vim.api.nvim_err_writeln "Error occurred performing update"
       return
     end
     -- print a summary of the update with the changelog

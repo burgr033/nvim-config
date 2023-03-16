@@ -1,25 +1,14 @@
 return {
   "nvim-lua/plenary.nvim",
+  { "AstroNvim/astrotheme", opts = { plugins = { ["dashboard-nvim"] = true } } },
   { "famiu/bufdelete.nvim", cmd = { "Bdelete", "Bwipeout" } },
-  {
-    "AstroNvim/astrotheme",
-    opts = { plugins = { ["dashboard-nvim"] = true } },
-  },
+  { "max397574/better-escape.nvim", event = "InsertCharPre", opts = { timeout = 300 } },
+  { "NMAC427/guess-indent.nvim", event = "User AstroFile", config = require "plugins.configs.guess-indent" },
+  { "Shatur/neovim-session-manager", event = "BufWritePost", cmd = "SessionManager" },
+  { "s1n7ax/nvim-window-picker", opts = { use_winbar = "smart" } },
   {
     "mrjones2014/smart-splits.nvim",
-    opts = {
-      ignored_filetypes = { "nofile", "quickfix", "qf", "prompt" },
-      ignored_buftypes = { "nofile" },
-    },
-  },
-  {
-    "Shatur/neovim-session-manager",
-    event = "BufWritePost",
-    cmd = "SessionManager",
-  },
-  {
-    "s1n7ax/nvim-window-picker",
-    opts = { use_winbar = "smart" },
+    opts = { ignored_filetypes = { "nofile", "quickfix", "qf", "prompt" }, ignored_buftypes = { "nofile" } },
   },
   {
     "windwp/nvim-autopairs",
@@ -73,12 +62,12 @@ return {
         end
 
         return (filetype == "" or buftype == "nofile") and "indent" -- only use indent until a file is opened
-            or function(bufnr)
-              return require("ufo")
-                  .getFolds(bufnr, "lsp")
-                  :catch(function(err) return handleFallbackException(bufnr, err, "treesitter") end)
-                  :catch(function(err) return handleFallbackException(bufnr, err, "indent") end)
-            end
+          or function(bufnr)
+            return require("ufo")
+              .getFolds(bufnr, "lsp")
+              :catch(function(err) return handleFallbackException(bufnr, err, "treesitter") end)
+              :catch(function(err) return handleFallbackException(bufnr, err, "indent") end)
+          end
       end,
     },
   },
@@ -103,15 +92,5 @@ return {
         highlights = { border = "Normal", background = "Normal" },
       },
     },
-  },
-  {
-    "NMAC427/guess-indent.nvim",
-    event = "User AstroFile",
-    config = require "plugins.configs.guess-indent",
-  },
-  {
-    "max397574/better-escape.nvim",
-    event = "InsertCharPre",
-    opts = { timeout = 300 },
   },
 }

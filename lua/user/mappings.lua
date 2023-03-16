@@ -18,6 +18,7 @@ return {
       end,
       desc = "Pick to close",
     },
+    ["q"] = { "<nop>", desc = "I don't use macros and press it accidentally all the time" },
     ["<C-S-Up>"] = { "<cmd>resize +2<cr>", desc = "Increase Window height" },
     ["<C-S-Down>"] = { "<cmd>resize -2<cr>", desc = "Decrease Window height" },
     ["<C-S-Left>"] = { "<cmd>vertical resize +2<cr>", desc = "Increase Window width" },
