@@ -26,6 +26,7 @@ function M.update(pkg_name, auto_install)
     return
   end
 
+ registry.refresh(function()
   local pkg_avail, pkg = pcall(registry.get_package, pkg_name)
   if not pkg_avail then
     notify(("Mason: %s is not available"):format(pkg_name), "error")
@@ -48,6 +49,7 @@ function M.update(pkg_name, auto_install)
       end)
     end
   end
+  end)
 end
 
 --- Update all packages in Mason
@@ -58,10 +60,12 @@ function M.update_all()
     return
   end
 
+  notify "Mason: Checking for package updates..."
+  registry.refresh(function()
   local installed_pkgs = registry.get_installed_packages()
   local running = #installed_pkgs
   local no_pkgs = running == 0
-  notify "Mason: Checking for package updates..."
+
 
   if no_pkgs then
     notify "Mason: No updates available"
@@ -94,6 +98,7 @@ function M.update_all()
       end)
     end
   end
+  end)
 end
 
 return M
