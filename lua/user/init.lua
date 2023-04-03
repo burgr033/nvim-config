@@ -45,7 +45,6 @@ return {
       then
         vim.diagnostic.open_float(nil, float_opts)
       end
-
       vim.b.diagnostics_pos = cursor_pos
     end,
   }),
@@ -84,18 +83,30 @@ return {
     performance = {
       rtp = {
         -- customize default disabled vim plugins
-        disabled_plugins = { "tohtml", "gzip", "matchit", "zipPlugin", "netrwPlugin", "tarPlugin", "matchparen" },
-      }
+        disabled_plugins = { "tohtml", "gzip", "matchit", "zipPlugin", "netrwPlugin", "tarPlugin" },
+      },
     },
   },
   -- This function is run last and is a good place to configuring
   -- augroups/autocommands and custom filetypes also this just pure lua so
   -- anything that doesn't fit in the normal config locations above can go here
   polish = function()
+    -- Set up custom filetypes
+    -- vim.filetype.add {
+    --   extension = {
+    --     foo = "fooscript",
+    --   },
+    --   filename = {
+    --     ["Foofile"] = "fooscript",
+    --   },
+    --   pattern = {
+    --     ["~/%.config/foo/.*"] = "fooscript",
+    --   },
+    -- }  
     -- see https://github.com/nvim-treesitter/nvim-treesitter/issues/1985
-    -- some parsers dont work on windows if they were compiled with gcc or something else.
+    -- some Treesitter parsers dont work on windows if they were compiled with gcc or something else. Zig is much easier to use under windows
     if vim.fn.has("Windows") then
-      require 'nvim-treesitter.install'.compilers = { "clang" }
+      require 'nvim-treesitter.install'.compilers = { "zig" }
       local powershell_options = {
         shell = vim.fn.executable "pwsh" == 1 and "pwsh" or "powershell",
         shellcmdflag =
@@ -110,7 +121,6 @@ return {
         vim.opt[option] = value
       end
     end
-    vim.api.nvim_create_user_command("CdC", "cd %:p:h", { desc = "change global directory to file location" })
     vim.api.nvim_create_user_command("InitDefaultMason",
       "MasonInstall codelldb gitlint intelephense json-lsp jsonlint lemminx lua-language-server php-debug-adapter phpstan python-lsp-server rust-analyzer rustfmt selene xmlformatter yaml-language-server yamlfmt yamllint",
       { desc = "Init my default mason packages" })
