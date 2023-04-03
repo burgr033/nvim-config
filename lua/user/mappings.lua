@@ -33,6 +33,7 @@ return {
     -- this is useful for naming menus
     ["<leader>b"] = { name = " Buffers" },
     ["<leader>W"] = { "<cmd>Telescope workspaces<cr>", desc = " Workspaces" },
+    ["<leader>lj"] = { function() vim.lsp.buf.definition() end, desc = "Jump to Definition" }
     -- quick save
     -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
   },
