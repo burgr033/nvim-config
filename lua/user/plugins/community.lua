@@ -6,4 +6,12 @@ return {
 
   { import = "astrocommunity.bars-and-lines.heirline-vscode-winbar" },
   { import = "astrocommunity.bars-and-lines.heirline-mode-text-statusline" },
+  { import = "astrocommunity.pack.json" },
+  { import = "astrocommunity.pack.rust" },
+  { import = "astrocommunity.pack.java" },
+  { import = "astrocommunity.pack.bash" },
+  { import = "astrocommunity.pack.yaml" },
+  { import = "astrocommunity.pack.toml" },
+  { import = "astrocommunity.pack.python" },
+  { import = "astrocommunity.pack.lua" },
 }

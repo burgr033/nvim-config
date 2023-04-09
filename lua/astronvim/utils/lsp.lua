@@ -74,7 +74,7 @@ M.format_opts.filter = function(client)
 end
 
 --- Helper function to set up a given server with the Neovim LSP client
--- @param server the name of the server to be setup
+---@param server string The name of the server to be setup
 M.setup = function(server)
   -- if server doesn't exist, set it up from user server definition
   local config_avail, config = pcall(require, "lspconfig.server_configurations." .. server)
@@ -103,8 +103,8 @@ local function add_buffer_autocmd(augroup, bufnr, autocmds)
 end
 
 --- The `on_attach` function used by AstroNvim
--- @param client the LSP client details when attaching
--- @param bufnr the number of the buffer that the LSP client is attaching to
+---@param client table The LSP client details when attaching
+---@param bufnr number The buffer that the LSP client is attaching to
 M.on_attach = function(client, bufnr)
   local capabilities = client.server_capabilities
   local lsp_mappings = {
@@ -194,9 +194,9 @@ M.on_attach = function(client, bufnr)
     local autoformat = M.formatting.format_on_save
     local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
     if
-        autoformat.enabled
-        and (tbl_isempty(autoformat.allow_filetypes or {}) or tbl_contains(autoformat.allow_filetypes, filetype))
-        and (tbl_isempty(autoformat.ignore_filetypes or {}) or not tbl_contains(autoformat.ignore_filetypes, filetype))
+      autoformat.enabled
+      and (tbl_isempty(autoformat.allow_filetypes or {}) or tbl_contains(autoformat.allow_filetypes, filetype))
+      and (tbl_isempty(autoformat.ignore_filetypes or {}) or not tbl_contains(autoformat.ignore_filetypes, filetype))
     then
       add_buffer_autocmd("lsp_auto_format", bufnr, {
         events = "BufWritePre",
@@ -294,6 +294,7 @@ M.on_attach = function(client, bufnr)
       desc = "Toggle LSP semantic highlight (buffer)",
     }
   end
+
   if is_available "telescope.nvim" then -- setup telescope mappings if available
     if lsp_mappings.n.gd then lsp_mappings.n.gd[1] = function() require("telescope.builtin").lsp_definitions() end end
     if lsp_mappings.n.gI then
@@ -312,7 +313,7 @@ M.on_attach = function(client, bufnr)
   end
 
   if not vim.tbl_isempty(lsp_mappings.v) then
-    lsp_mappings.v["<leader>l"] = { name = (vim.g.icons_enabled and " " or "") .. "LSP" }
+    lsp_mappings.v["<leader>l"] = { desc = (vim.g.icons_enabled and " " or "") .. "LSP" }
   end
   utils.set_mappings(user_opts("lsp.mappings", lsp_mappings), { buffer = bufnr })
 
@@ -331,14 +332,14 @@ M.capabilities.textDocument.completion.completionItem.deprecatedSupport = true
 M.capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
 M.capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
 M.capabilities.textDocument.completion.completionItem.resolveSupport =
-{ properties = { "documentation", "detail", "additionalTextEdits" } }
+  { properties = { "documentation", "detail", "additionalTextEdits" } }
 M.capabilities.textDocument.foldingRange = { dynamicRegistration = false, lineFoldingOnly = true }
 M.capabilities = user_opts("lsp.capabilities", M.capabilities)
 M.flags = user_opts "lsp.flags"
 
 --- Get the server configuration for a given language server to be provided to the server's `setup()` call
--- @param  server_name the name of the server
--- @return the table of LSP options used when setting up the given language server
+---@param server_name string The name of the server
+---@return table # The table of LSP options used when setting up the given language server
 function M.config(server_name)
   local server = require("lspconfig")[server_name]
   local lsp_opts = require("astronvim.utils").extend_tbl(

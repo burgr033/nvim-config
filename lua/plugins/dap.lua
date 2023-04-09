@@ -5,8 +5,8 @@ return {
       "jay-babu/mason-nvim-dap.nvim",
       dependencies = { "nvim-dap" },
       cmd = { "DapInstall", "DapUninstall" },
-      opts = { automatic_setup = true },
-      config = require "plugins.configs.mason-nvim-dap",
+      opts = { handlers = {} },
+      config = require "plugins.configs.mason-nvim-dap", -- remove in v4
     },
     {
       "rcarriga/nvim-dap-ui",
