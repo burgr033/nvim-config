@@ -1,7 +1,4 @@
-if exists(':AsyncRun')
-  nnoremap <buffer><silent> <C-F9> :<C-U>AsyncRun -save=1 python -u "%"<CR>
-  nnoremap <buffer><silent> <C-F10> :call asyncrun#quickfix_toggle(8)<cr>
-endif
+nnoremap <buffer><silent> <C-F7> :w!<CR>:1TermExec cmd="python %:p"<CR>
 
 " Do not wrap Python source code.
 set nowrap

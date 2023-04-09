@@ -81,7 +81,8 @@ autocmd("BufWinEnter", {
     end
   end,
 })
-autocmd("FileType", {
+
+autocmd("BufWinEnter", {
   desc = "Make q close help, man, quickfix, dap floats",
   group = augroup("q_close_windows", { clear = true }),
   callback = function(event)
@@ -92,7 +93,6 @@ autocmd("FileType", {
     end
   end,
 })
-
 
 autocmd("TextYankPost", {
   desc = "Highlight yanked text",
@@ -115,7 +115,7 @@ autocmd("BufEnter", {
     local wins = vim.api.nvim_tabpage_list_wins(0)
     -- Both neo-tree and aerial will auto-quit if there is only a single window left
     if #wins <= 1 then return end
-    local sidebar_fts = { aerial = true,["neo-tree"] = true }
+    local sidebar_fts = { aerial = true, ["neo-tree"] = true }
     for _, winid in ipairs(wins) do
       if vim.api.nvim_win_is_valid(winid) then
         local bufnr = vim.api.nvim_win_get_buf(winid)
@@ -123,7 +123,7 @@ autocmd("BufEnter", {
         -- If any visible windows are not sidebars, early return
         if not sidebar_fts[filetype] then
           return
-          -- If the visible window is a sidebar
+        -- If the visible window is a sidebar
         else
           -- only count filetypes once, so remove a found sidebar from the detection
           sidebar_fts[filetype] = nil
@@ -164,7 +164,7 @@ if is_available "alpha-nvim" then
     group = group_name,
     callback = function()
       local should_skip = false
-      if vim.fn.argc() > 0 or vim.fn.line2byte "$" ~= -1 or not vim.o.modifiable then
+      if vim.fn.argc() > 0 or vim.fn.line2byte(vim.fn.line "$") ~= -1 or not vim.o.modifiable then
         should_skip = true
       else
         for _, arg in pairs(vim.v.argv) do

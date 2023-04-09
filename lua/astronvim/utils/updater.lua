@@ -31,8 +31,8 @@ local function confirm_prompt(messages)
 end
 
 --- Helper function to generate AstroNvim snapshots (For internal use only)
--- @param write boolean whether or not to write to the snapshot file (default: false)
--- @return the plugin specification table of the snapshot
+---@param write? boolean Whether or not to write to the snapshot file (default: false)
+---@return table # The plugin specification table of the snapshot
 function M.generate_snapshot(write)
   local file
   local prev_snapshot = require(astronvim.updater.snapshot.module)
@@ -73,8 +73,8 @@ function M.generate_snapshot(write)
 end
 
 --- Get the current AstroNvim version
--- @param quiet boolean to quietly execute or send a notification
--- @return the current AstroNvim version string
+---@param quiet? boolean Whether to quietly execute or send a notification
+---@return string # The current AstroNvim version string
 function M.version(quiet)
   local version = astronvim.install.version or git.current_version(false) or "unknown"
   if astronvim.updater.options.channel ~= "stable" then version = ("nightly (%s)"):format(version) end
@@ -83,8 +83,8 @@ function M.version(quiet)
 end
 
 --- Get the full AstroNvim changelog
--- @param quiet boolean to quietly execute or display the changelog
--- @return the current AstroNvim changelog table of commit messages
+---@param quiet? boolean Whether to quietly execute or display the changelog
+---@return table # The current AstroNvim changelog table of commit messages
 function M.changelog(quiet)
   local summary = {}
   vim.list_extend(summary, git.pretty_changelog(git.get_commit_range()))
@@ -93,12 +93,12 @@ function M.changelog(quiet)
 end
 
 --- Attempt an update of AstroNvim
--- @param target the target if checking out a specific tag or commit or nil if just pulling
+---@param target string The target if checking out a specific tag or commit or nil if just pulling
 local function attempt_update(target, opts)
   -- if updating to a new stable version or a specific commit checkout the provided target
   if opts.channel == "stable" or opts.commit then
     return git.checkout(target, false)
-    -- if no target, pull the latest
+  -- if no target, pull the latest
   else
     return git.pull(false)
   end
@@ -114,7 +114,8 @@ function M.update_packages()
 end
 
 --- Create a table of options for the currently installed AstroNvim version
--- @return the table of updater options
+---@param write? boolean Whether or not to write to the rollback file (default: false)
+---@return table # The table of updater options
 function M.create_rollback(write)
   local snapshot = { branch = git.current_branch(), commit = git.local_head() }
   if snapshot.branch == "HEAD" then snapshot.branch = "main" end
@@ -134,13 +135,14 @@ end
 function M.rollback()
   local rollback_avail, rollback_opts = pcall(dofile, astronvim.updater.rollback_file)
   if not rollback_avail then
-    notify("No rollback file available", "error")
+    notify("No rollback file available", vim.log.levels.ERROR)
     return
   end
   M.update(rollback_opts)
 end
 
 --- AstroNvim's updater function
+---@param opts? table the settings to use for the update
 function M.update(opts)
   if not opts then opts = astronvim.updater.options end
   opts = require("astronvim.utils").extend_tbl({ remote = "origin", show_changelog = true, auto_quit = false }, opts)
@@ -148,14 +150,14 @@ function M.update(opts)
   if not git.available() then
     notify(
       "git command is not available, please verify it is accessible in a command line. This may be an issue with your PATH",
-      "error"
+      vim.log.levels.ERROR
     )
     return
   end
 
   -- if installed with an external package manager, disable the internal updater
   if not git.is_repo() then
-    notify("Updater not available for non-git installations", "error")
+    notify("Updater not available for non-git installations", vim.log.levels.ERROR)
     return
   end
   -- set up any remotes defined by the user if they do not exist
@@ -167,16 +169,16 @@ function M.update(opts)
       git.remote_add(remote, url)
       check_needed = true
     elseif
-        current_url ~= url
-        and confirm_prompt {
-          { "Remote " },
-          { remote,                             "Title" },
-          { " is currently set to " },
-          { current_url,                        "WarningMsg" },
-          { "\nWould you like us to set it to " },
-          { url,                                "String" },
-          { "?" },
-        }
+      current_url ~= url
+      and confirm_prompt {
+        { "Remote " },
+        { remote, "Title" },
+        { " is currently set to " },
+        { current_url, "WarningMsg" },
+        { "\nWould you like us to set it to " },
+        { url, "String" },
+        { "?" },
+      }
     then
       git.remote_update(remote, url)
       check_needed = true
@@ -220,8 +222,8 @@ function M.update(opts)
     end
   end
   local source = git.local_head() -- calculate current commit
-  local target                    -- calculate target commit
-  if is_stable then               -- if stable get tag commit
+  local target -- calculate target commit
+  if is_stable then -- if stable get tag commit
     local version_search = opts.version or "latest"
     opts.version = git.latest_version(git.get_versions(version_search))
     if not opts.version then -- continue only if stable version is found
@@ -231,7 +233,7 @@ function M.update(opts)
     target = git.tag_commit(opts.version)
   elseif opts.commit then -- if commit specified use it
     target = git.branch_contains(opts.remote, opts.branch, opts.commit) and opts.commit or nil
-  else                    -- get most recent commit
+  else -- get most recent commit
     target = git.remote_head(opts.remote, opts.branch)
   end
   if not source or not target then -- continue if current and target commits were found
@@ -241,16 +243,16 @@ function M.update(opts)
     echo { { "No updates available", "String" } }
     return
   elseif -- prompt user if they want to accept update
-      not opts.skip_prompts
-      and not confirm_prompt {
-        { "Update available to ",                    "Title" },
-        { is_stable and opts.version or target,      "String" },
-        { "\nUpdating requires a restart, continue?" },
-      }
+    not opts.skip_prompts
+    and not confirm_prompt {
+      { "Update available to ", "Title" },
+      { is_stable and opts.version or target, "String" },
+      { "\nUpdating requires a restart, continue?" },
+    }
   then
     echo(cancelled_message)
     return
-  else                      -- perform update
+  else -- perform update
     M.create_rollback(true) -- create rollback file before updating
     -- calculate and print the changelog
     local changelog = git.get_commit_range(source, target)
@@ -266,16 +268,16 @@ function M.update(opts)
     local updated = attempt_update(target, opts)
     -- check for local file conflicts and prompt user to continue or abort
     if
-        not updated
-        and not opts.skip_prompts
-        and not confirm_prompt {
-          { "Unable to pull due to local modifications to base files.\n", "ErrorMsg" },
-          { "Reset local files and continue?" },
-        }
+      not updated
+      and not opts.skip_prompts
+      and not confirm_prompt {
+        { "Unable to pull due to local modifications to base files.\n", "ErrorMsg" },
+        { "Reset local files and continue?" },
+      }
     then
       echo(cancelled_message)
       return
-      -- if continued and there were errors reset the base config and attempt another update
+    -- if continued and there were errors reset the base config and attempt another update
     elseif not updated then
       git.hard_reset(source)
       updated = attempt_update(target, opts)
@@ -288,11 +290,11 @@ function M.update(opts)
     -- print a summary of the update with the changelog
     local summary = {
       { "AstroNvim updated successfully to ", "Title" },
-      { git.current_version(),                "String" },
-      { "!\n",                                "Title" },
+      { git.current_version(), "String" },
+      { "!\n", "Title" },
       {
         opts.auto_quit and "AstroNvim will now update plugins and quit.\n\n"
-        or "After plugins update, please restart.\n\n",
+          or "After plugins update, please restart.\n\n",
         "WarningMsg",
       },
     }
@@ -307,7 +309,7 @@ function M.update(opts)
       vim.api.nvim_create_autocmd("User", { pattern = "AstroUpdateComplete", command = "quitall" })
     end
 
-    require("lazy.core.plugin").load()   -- force immediate reload of lazy
+    require("lazy.core.plugin").load() -- force immediate reload of lazy
     require("lazy").sync { wait = true } -- sync new plugin spec changes
     utils.event "UpdateComplete"
   end
