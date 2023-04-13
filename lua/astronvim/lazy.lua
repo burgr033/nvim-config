@@ -4,7 +4,7 @@ if not vim.loop.fs_stat(lazypath) then
   if vim.api.nvim_get_vvar "shell_error" ~= 0 then
     vim.api.nvim_err_writeln("Error cloning lazy.nvim repository...\n\n" .. output)
   end
-   local oldcmdheight = vim.opt.cmdheight:get()
+  local oldcmdheight = vim.opt.cmdheight:get()
   vim.opt.cmdheight = 1
   vim.notify "Please wait while plugins are installed..."
   vim.api.nvim_create_autocmd("User", {
@@ -37,7 +37,7 @@ require("lazy").setup(astronvim.user_opts("lazy", {
   performance = {
     rtp = {
       paths = astronvim.supported_configs,
-      disabled_plugins = { "tohtml", "gzip", "matchit", "zipPlugin", "netrwPlugin", "tarPlugin" },
+      disabled_plugins = { "tohtml", "gzip", "zipPlugin", "netrwPlugin", "tarPlugin" },
     },
   },
   lockfile = vim.fn.stdpath "data" .. "/lazy-lock.json",
