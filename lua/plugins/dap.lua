@@ -6,7 +6,6 @@ return {
       dependencies = { "nvim-dap" },
       cmd = { "DapInstall", "DapUninstall" },
       opts = { handlers = {} },
-      config = require "plugins.configs.mason-nvim-dap", -- remove in v4
     },
     {
       "rcarriga/nvim-dap-ui",
