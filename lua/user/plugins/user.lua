@@ -10,20 +10,32 @@ return {
 	--   end,
 	-- },
 	{
-		"skywind3000/asyncrun.vim",
-		cmd = "AsyncRun"
+		"CRAG666/code_runner.nvim",
+		cmd = "RunCode",
+		config = function()
+			require("code_runner").setup({
+				mode = "toggleterm",
+				before_run_filetype = function()
+					vim.cmd(":w")
+				end,
+				filetype = {
+					ps1 = {
+						"cd $dir",
+						"powershell -file $fileName",
+					},
+				},
+			})
+		end,
 	},
 	{
 		"natecraddock/workspaces.nvim",
 		cmd = "Telescope workspaces",
 		config = function()
-			require("workspaces").setup(
-				{
-					hooks = {
-						open = { "Telescope find_files" },
-					}
-				}
-			)
+			require("workspaces").setup({
+				hooks = {
+					open = { "Telescope find_files" },
+				},
+			})
 		end,
 	},
 }
