@@ -1,4 +1,4 @@
-nnoremap <buffer><silent> <C-F7> :w!<CR>:1TermExec cmd="python %:p"<CR>
+nnoremap <buffer><silent> <C-F7> :RunCode <CR>
 
 " Do not wrap Python source code.
 set nowrap
