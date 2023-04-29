@@ -10,7 +10,23 @@ return {
         "██  IF YOU WANT IMMEDIATE FEEDBACK, ALWAYS MAKE CHANGES IN PRODUCTION.  ██",
         "██                                                                      ██",
         "██████████████████████████████████████████████████████████████████████████",
-}
+      }
+      opts.section.header.opts.hl = "DashboardHeader"
+      local button = require("astronvim.utils").alpha_button
+      opts.section.buttons.val = {
+        button("LDR n", "  New File  "),
+        button("LDR W", "  Workspaces  "),
+        button("LDR f o", "  Recents  "),
+        button("LDR f f", "  Find File  "),
+        button("LDR f w", "  Find Word  "),
+        button("LDR S l", "  Last Session  "),
+      }
+      opts.section.header.opts.hl = "DashboardFooter"
+      local excuse = require("alpha.excuse")
+      opts.section.footer.val = excuse()
+      opts.config.layout[1].val = vim.fn.max({ 2, vim.fn.floor(vim.fn.winheight(0) * 0.2) })
+      opts.config.layout[3].val = 5
+      opts.config.opts.noautocmd = true
       return opts
     end,
   },
@@ -21,12 +37,40 @@ return {
   {
     "L3MON4D3/LuaSnip",
     config = function(plugin, opts)
-      require "plugins.configs.luasnip" (plugin, opts)                                       -- include the default astronvim config that calls the setup call
+      require("plugins.configs.luasnip")(plugin, opts)                                     -- include the default astronvim config that calls the setup call
       -- add more custom luasnip configuration such as filetype extend or custom snippets
-      require("luasnip.loaders.from_vscode").lazy_load { paths = { "./lua/user/snippets" } } -- load snippets paths
-      require("luasnip.loaders.from_snipmate").lazy_load { paths = { "./lua/user/snippets" } }
+      require("luasnip.loaders.from_vscode").lazy_load({ paths = { "./lua/user/snippets" } }) -- load snippets paths
+      require("luasnip.loaders.from_snipmate").lazy_load({ paths = { "./lua/user/snippets" } })
     end,
   },
+  {
+    "CRAG666/code_runner.nvim",
+    config = function()
+      require("code_runner").setup({
+        mode = "toggleterm",
+        before_run_filetype = function()
+          vim.cmd(":w")
+        end,
+        filetype = {
+          ps1 = {
+            "cd $dir;",
+            "powershell -file $fileName",
+          },
+        },
+      })
+    end,
+  },
+  {
+    "natecraddock/workspaces.nvim",
+    config = function()
+      require("workspaces").setup({
+        hooks = {
+          open = { "Telescope find_files" },
+        },
+      })
+    end,
+  },
+
   -- {
   --   "windwp/nvim-autopairs",
   --   config = function(plugin, opts)

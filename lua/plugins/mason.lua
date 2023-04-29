@@ -10,7 +10,6 @@ return {
       "MasonUpdate", -- AstroNvim extension here as well
       "MasonUpdateAll", -- AstroNvim specific
     },
-
     opts = {
       ui = {
         icons = {
@@ -20,6 +19,7 @@ return {
         },
       },
     },
+    build = ":MasonUpdate",
     config = require "plugins.configs.mason",
   },
 }
