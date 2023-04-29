@@ -10,32 +10,21 @@ return {
 	--   end,
 	-- },
 	{
+		"mfussenegger/nvim-dap",
+		enabled = true
+	},
+	{
+		"goolord/alpha-nvim",
+		dependencies = { "cigh033/alpha-nvim-bofh-excuse" },
+		cmd = "Alpha"
+	},	
+	
+	{
 		"CRAG666/code_runner.nvim",
-		cmd = "RunCode",
-		config = function()
-			require("code_runner").setup({
-				mode = "toggleterm",
-				before_run_filetype = function()
-					vim.cmd(":w")
-				end,
-				filetype = {
-					ps1 = {
-						"cd $dir",
-						"powershell -file $fileName",
-					},
-				},
-			})
-		end,
+		cmd = "RunCode"
 	},
 	{
 		"natecraddock/workspaces.nvim",
-		cmd = "Telescope workspaces",
-		config = function()
-			require("workspaces").setup({
-				hooks = {
-					open = { "Telescope find_files" },
-				},
-			})
-		end,
+		cmd = "Telescope workspaces"
 	},
 }
