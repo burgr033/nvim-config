@@ -37,7 +37,7 @@ return {
   {
     "L3MON4D3/LuaSnip",
     config = function(plugin, opts)
-      require("plugins.configs.luasnip")(plugin, opts)                                     -- include the default astronvim config that calls the setup call
+      require("plugins.configs.luasnip")(plugin, opts)                                        -- include the default astronvim config that calls the setup call
       -- add more custom luasnip configuration such as filetype extend or custom snippets
       require("luasnip.loaders.from_vscode").lazy_load({ paths = { "./lua/user/snippets" } }) -- load snippets paths
       require("luasnip.loaders.from_snipmate").lazy_load({ paths = { "./lua/user/snippets" } })
@@ -53,8 +53,10 @@ return {
         end,
         filetype = {
           ps1 = {
-            "cd $dir;",
-            "powershell -file $fileName",
+            "cd $dir && powershell -file $fileName",
+          },
+          rust = {
+            "cd $dir && rustc $fileName && $dir/$fileNameWithoutExt",
           },
         },
       })
