@@ -22,8 +22,8 @@ if astronvim.install.home ~= astronvim.install.config then
 end
 
 --- Looks to see if a module path references a lua file in a configuration folder and tries to load it. If there is an error loading the file, write an error and continue
--- @param module the module path to try and load
--- @return the loaded module if successful or nil
+---@param module string The module path to try and load
+---@return table|nil # The loaded module if successful or nil
 local function load_module_file(module)
   -- placeholder for final return value
   local found_module = nil
@@ -41,7 +41,7 @@ local function load_module_file(module)
     -- if successful at loading, set the return variable
     if status_ok then
       found_module = loaded_module
-      -- if unsuccessful, throw an error
+    -- if unsuccessful, throw an error
     else
       vim.api.nvim_err_writeln("Error loading file: " .. found_module .. "\n\n" .. loaded_module)
     end
@@ -62,11 +62,11 @@ local function func_or_extend(overrides, default, extend)
     if type(overrides) == "table" then
       local opts = overrides or {}
       default = default and vim.tbl_deep_extend("force", default, opts) or opts
-      -- if the override is  a function, call it with the default and overwrite default with the return value
+    -- if the override is  a function, call it with the default and overwrite default with the return value
     elseif type(overrides) == "function" then
       default = overrides(default)
     end
-    -- if extend is set to false and we have a provided override, simply override the default
+  -- if extend is set to false and we have a provided override, simply override the default
   elseif overrides ~= nil then
     default = overrides
   end
@@ -94,10 +94,10 @@ local function user_setting_table(module)
 end
 
 --- User configuration entry point to override the default options of a configuration table with a user configuration file or table in the user/init.lua user settings
--- @param module the module path of the override setting
--- @param default the default settings that will be overridden
--- @param extend boolean value to either extend the default settings or overwrite them with the user settings entirely (default: true)
--- @return the new configuration settings with the user overrides applied
+---@param module string The module path of the override setting
+---@param default? table The default settings that will be overridden
+---@param extend? boolean # Whether extend the default settings or overwrite them with the user settings entirely (default: true)
+---@return any # The new configuration settings with the user overrides applied
 function astronvim.user_opts(module, default, extend)
   -- default to extend = true
   if extend == nil then extend = true end
@@ -122,6 +122,7 @@ astronvim.updater = {
 local options = astronvim.updater.options
 if astronvim.install.is_stable ~= nil then options.channel = astronvim.install.is_stable and "stable" or "nightly" end
 if options.pin_plugins == nil then options.pin_plugins = options.channel == "stable" end
+
 --- table of user created terminals
 astronvim.user_terminals = {}
 --- table of language servers to ignore the setup of, configured through lsp.skip_setup in the user configuration
