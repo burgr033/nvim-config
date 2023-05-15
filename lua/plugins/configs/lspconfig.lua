@@ -21,7 +21,7 @@ return function(_, _)
   if vim.g.lsp_handlers_enabled then
     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded", silent = true })
     vim.lsp.handlers["textDocument/signatureHelp"] =
-    vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded", silent = true })
+      vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded", silent = true })
   end
   local setup_servers = function()
     vim.tbl_map(require("astronvim.utils.lsp").setup, astronvim.user_opts "lsp.servers")
@@ -29,7 +29,12 @@ return function(_, _)
     require("astronvim.utils").event "LspSetup"
   end
   if require("astronvim.utils").is_available "mason-lspconfig.nvim" then
-    vim.api.nvim_create_autocmd("User", { pattern = "AstroMasonLspSetup", once = true, callback = setup_servers })
+    vim.api.nvim_create_autocmd("User", {
+      desc = "set up LSP servers after mason-lspconfig",
+      pattern = "AstroMasonLspSetup",
+      once = true,
+      callback = setup_servers,
+    })
   else
     setup_servers()
   end
