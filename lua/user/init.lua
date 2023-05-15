@@ -124,15 +124,7 @@ return {
 		local telescope = require("telescope")
 		local utils = require("astronvim.utils")
 		utils.conditional_func(telescope.load_extension, utils.is_available("workspaces.nvim"), "workspaces")
-		require("lspconfig").julials.setup({
-			on_new_config = function(new_config, _)
-				local julia = vim.fn.expand("~/.julia/environments/nvim-lspconfig/bin/julia")
-				if require("lspconfig").util.path.is_file(julia) then
-					vim.notify("Hello!")
-					new_config.cmd[1] = julia
-				end
-			end,
-		})
+
 		require("mason").setup({
 			log_level = vim.log.levels.DEBUG,
 		})
