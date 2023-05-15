@@ -24,6 +24,10 @@ return {
 		cmd = "RunCode"
 	},
 	{
+		"mfussenegger/nvim-jdtls",
+		ft = "java"
+	},
+	{
 		"natecraddock/workspaces.nvim",
 		cmd = "Telescope workspaces"
 	},
