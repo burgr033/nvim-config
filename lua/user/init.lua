@@ -106,7 +106,7 @@ return {
 		-- }
 		-- see https://github.com/nvim-treesitter/nvim-treesitter/issues/1985
 		-- some Treesitter parsers dont work on windows if they were compiled with gcc or something else. Zig is much easier to use under windows
-		if vim.fn.has("Windows") then
+		if vim.fn.has("win32") then
 			require("nvim-treesitter.install").compilers = { "zig" }
 			local powershell_options = {
 				shell = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell",
