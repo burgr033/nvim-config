@@ -304,8 +304,20 @@ end
 -- @see astronvim.utils.status.utils.stylize
 function M.file_encoding(opts)
   return function(self)
-    local buf_fileformat = vim.bo[self and self.bufnr or 0].fileformat
-    return status_utils.stylize(string.upper(buf_fileformat ~= "" and buf_fileformat or vim.o.fileformat), opts)
+    local buf_enc = vim.bo[self and self.bufnr or 0].fenc
+    return status_utils.stylize(string.upper(buf_enc ~= "" and buf_enc or vim.o.enc), opts)
+  end
+end
+
+--- A provider function for showing the current file format
+---@param opts? table options passed to the stylize function
+---@return function  # the function for outputting the file format
+-- @usage local heirline_component = { provider = require("astronvim.utils.status").provider.file_format() }
+-- @see astronvim.utils.status.utils.stylize
+function M.file_format(opts)
+  return function(self)
+    local buf_format = vim.bo[self and self.bufnr or 0].fileformat
+    return status_utils.stylize(string.upper(buf_format ~= "" and buf_format or vim.o.fileformat), opts)
   end
 end
 
