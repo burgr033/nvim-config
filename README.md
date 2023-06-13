@@ -13,13 +13,20 @@ scoop install 7zip curl fd fzf gdu gzip lazygit less make mingw neovim nodejs ri
 pip install pynvim
 # clone config
 git clone https://github.com/cigh033/nvim-config $ENV:LOCALAPPDATA\nvim
-# launch neovim
+# launch neovim and let Lazy & Mason do their magic
 nvim
 ```
 ### Arch Linux / Manjaro
-
-TBD
-
+```shell
+# backup your neovim config
+mv ~/.config/nvim ~/.config/nvim.bck
+# install dependencies and neovim
+sudo pacman -Sy --needed curl fd git neovim ripgrep fzf python python-setuptools python-pip python-pynvim python-virtualenvwrapper gdu lazygit bottom unzip base-devel wget
+# clone config
+git clone https://github.com/cigh033/nvim-config ~/.config/nvim
+# launch neovim and let Lazy & Mason do their magic
+nvim
+```
 ## Credits
 * [mehalter / AstroNvim](https://github.com/AstroNvim/AstroNvim/)
 * [scoop.sh](https://scoop.sh) (awesome package manager for windows)
