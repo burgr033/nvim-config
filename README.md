@@ -1,4 +1,6 @@
 # my neovim config powered by AstroNvim
+## Summary
+Astronvim is a neovim distribution. My neovim config is 99.9% Astronvim with one exception. All other customizations were made in the `lua/user/` directory. I use neovim for working on ansible, bash and powershell scripts, and some light python development.
 ## Install
 ### Windows
 *I use scoop as package manager under windows. It easily installs all we need for AstroNvim also I use zig as a compiler for treesitter modules, because gcc + mingw as issues on windows.*
