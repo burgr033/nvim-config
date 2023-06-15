@@ -13,13 +13,15 @@ return {
       }
       opts.section.header.opts.hl = "DashboardHeader"
       local button = require("astronvim.utils").alpha_button
+      local get_icon = require("astronvim.utils").get_icon
       opts.section.buttons.val = {
-        button("LDR n", "  New File  "),
-        button("LDR W", "  Workspaces  "),
-        button("LDR f o", "  Recents  "),
-        button("LDR f f", "  Find File  "),
-        button("LDR f w", "  Find Word  "),
-        button("LDR S l", "  Last Session  "),
+        button("LDR n  ", get_icon("FileNew", 2, true) .. "New File  "),
+        button("LDR W  ", get_icon("FolderOpen", 2, true) .. "Workspaces  "),
+        button("LDR f o", get_icon("DefaultFile", 2, true) .. "Recents  "),
+        button("LDR f f", get_icon("Search", 2, true) .. "Find File  "),
+        button("LDR f w", get_icon("WordFile", 2, true) .. "Find Word  "),
+        button("LDR S l", get_icon("Refresh", 2, true) .. "Last Session  "),
+
       }
       opts.section.header.opts.hl = "DashboardFooter"
       local excuse = require("alpha.excuse")
@@ -67,7 +69,7 @@ return {
     config = function()
       require("workspaces").setup({
         hooks = {
-          open = { "Telescope find_files" },
+          open = { "Neotree toggle" },
         },
       })
     end,
