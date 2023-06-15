@@ -7,6 +7,8 @@ Astronvim is a neovim distribution. My neovim config is 99.9% Astronvim with one
 ```shell
 # backup your neovim config
 mv $ENV:LOCALAPPDATA\nvim $ENV:LOCALAPPDATA\nvim.bck
+# backup your data directory optional but recommended
+mv $ENV:LOCALAPPDATA\nvim-data $ENV:LOCALAPPDATA\nvim-data.bck
 # install dependencies and neovim
 scoop install 7zip curl fd fzf gdu gzip lazygit less make mingw neovim nodejs ripgrep tree-sitter unzip wget zig python
 # install pynvim via pip
@@ -20,6 +22,10 @@ nvim
 ```shell
 # backup your neovim config
 mv ~/.config/nvim ~/.config/nvim.bck
+# backup your data directory optional but recommended
+mv ~/.local/share/nvim ~/.local/share/nvim.bck
+mv ~/.local/state/nvim ~/.local/state/nvim.bck
+mv ~/.cache/nvim ~/.cache/nvim.bck
 # install dependencies and neovim
 sudo pacman -Sy --needed curl fd git neovim ripgrep fzf python python-setuptools python-pip python-pynvim python-virtualenvwrapper gdu lazygit bottom unzip base-devel wget
 # clone config
