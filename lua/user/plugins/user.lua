@@ -43,7 +43,9 @@ return {
 				vim.g.vimtex_view_general_viewer = "SumatraPDF"
 				vim.g.vimtex_view_general_options = "-reuse-instance -forward-search @tex @line @pdf"
 			end
-
+			if vim.fn.has("linux") then
+				vim.g.vimtex_view_method = "zathura"
+			end
 			vim.g.vimtex_fold_enabled = true
 			vim.g.vimtex_syntax_conceal = {
 				accents = 1,
