@@ -39,8 +39,11 @@ return {
 					"-synctex=1",
 				},
 			}
-			vim.g.vimtex_view_general_viewer = "SumatraPDF"
-			vim.g.vimtex_view_general_options = "-reuse-instance -forward-search @tex @line @pdf"
+			if vim.fn.has("win32") then
+				vim.g.vimtex_view_general_viewer = "SumatraPDF"
+				vim.g.vimtex_view_general_options = "-reuse-instance -forward-search @tex @line @pdf"
+			end
+
 			vim.g.vimtex_fold_enabled = true
 			vim.g.vimtex_syntax_conceal = {
 				accents = 1,
