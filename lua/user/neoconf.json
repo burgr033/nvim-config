@@ -1,0 +1,13 @@
+{
+  "lspconfig": {
+    "pylsp": {
+      "pylsp.plugins.pycodestyle.ignore": [
+        "E501",
+        "W605"
+      ],
+      "pylsp.plugins.flake8.ignore": [
+        "E501"
+      ]
+    }
+  }
+}
