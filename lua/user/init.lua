@@ -20,7 +20,7 @@ return {
   colorscheme = "astrodark",
   -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
   diagnostics = {
-    virtual_text = false,
+    virtual_text = true,
     update_in_insert = true,
     underline = true,
   },
