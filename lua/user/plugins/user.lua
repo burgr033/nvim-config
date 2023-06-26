@@ -20,6 +20,7 @@ return {
   },
   {
     "lervag/vimtex",
+    dependencies = { "hrsh7th/cmp-omni" },
     ft = { "tex", "bib" },
     opts = { patterns = { "*.tex" } },
     config = function(_, opts)
@@ -27,8 +28,10 @@ return {
         pattern = opts.patterns,
         callback = function() vim.cmd [[VimtexCompile]] end,
       })
+      vim.g.vimtex_quickfix_ignore_filters =
+      { "Package typearea Warning", "MakeUppercase", "MT@gobble@to@nil", "Runaway argument?" }
       vim.g.vimtex_compiler_latexmk = {
-        build_dir = ".out",
+        build_dir = "out",
         options = {
           "-shell-escape",
           "-verbose",

@@ -70,7 +70,12 @@ return {
     },
     -- enable servers that you already have installed without mason
     servers = {
-      -- "pyright"
+      --  "pyright",
+      --  ["server-settings"] = {
+      --    ltex = {
+      --      language = "de-DE",
+      --    },
+      --  },
     },
   },
   -- Configure require("lazy").setup() options
@@ -122,8 +127,16 @@ return {
     local telescope = require "telescope"
     local utils = require "astronvim.utils"
     utils.conditional_func(telescope.load_extension, utils.is_available "workspaces.nvim", "workspaces")
-
     require("ltex-client").setup()
+
+    require("lspconfig").ltex.setup {
+      settings = {
+        ltex = {
+          language = "de-DE",
+        },
+      },
+    }
+
     require("mason").setup {
       log_level = vim.log.levels.DEBUG,
     }
