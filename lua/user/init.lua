@@ -123,6 +123,7 @@ return {
     local utils = require "astronvim.utils"
     utils.conditional_func(telescope.load_extension, utils.is_available "workspaces.nvim", "workspaces")
 
+    require("ltex-client").setup()
     require("mason").setup {
       log_level = vim.log.levels.DEBUG,
     }
