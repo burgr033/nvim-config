@@ -30,6 +30,7 @@ return {
       opts.config.opts.noautocmd = true
       return opts
     end,
+    config = function(_, opts) require("alpha").setup(opts.config) end,
   },
   -- You can disable default plugins as follows:
   -- { "max397574/better-escape.nvim", enabled = false },
