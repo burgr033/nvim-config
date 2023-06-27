@@ -21,12 +21,11 @@ return {
         button("LDR f f", get_icon("Search", 2, true) .. "Find File  "),
         button("LDR f w", get_icon("WordFile", 2, true) .. "Find Word  "),
         button("LDR S l", get_icon("Refresh", 2, true) .. "Last Session  "),
-
       }
       opts.section.header.opts.hl = "DashboardFooter"
-      local excuse = require("alpha.excuse")
+      local excuse = require "alpha.excuse"
       opts.section.footer.val = excuse()
-      opts.config.layout[1].val = vim.fn.max({ 2, vim.fn.floor(vim.fn.winheight(0) * 0.2) })
+      opts.config.layout[1].val = vim.fn.max { 2, vim.fn.floor(vim.fn.winheight(0) * 0.2) }
       opts.config.layout[3].val = 5
       opts.config.opts.noautocmd = true
       return opts
@@ -39,20 +38,18 @@ return {
   {
     "L3MON4D3/LuaSnip",
     config = function(plugin, opts)
-      require("plugins.configs.luasnip")(plugin, opts)                                        -- include the default astronvim config that calls the setup call
+      require "plugins.configs.luasnip" (plugin, opts)                                       -- include the default astronvim config that calls the setup call
       -- add more custom luasnip configuration such as filetype extend or custom snippets
-      require("luasnip.loaders.from_vscode").lazy_load({ paths = { "./lua/user/snippets" } }) -- load snippets paths
-      require("luasnip.loaders.from_snipmate").lazy_load({ paths = { "./lua/user/snippets" } })
+      require("luasnip.loaders.from_vscode").lazy_load { paths = { "./lua/user/snippets" } } -- load snippets paths
+      require("luasnip.loaders.from_snipmate").lazy_load { paths = { "./lua/user/snippets" } }
     end,
   },
   {
     "CRAG666/code_runner.nvim",
     config = function()
-      require("code_runner").setup({
+      require("code_runner").setup {
         mode = "toggleterm",
-        before_run_filetype = function()
-          vim.cmd(":w")
-        end,
+        before_run_filetype = function() vim.cmd ":w" end,
         filetype = {
           ps1 = {
             "cd $dir && powershell -file $fileName",
@@ -61,20 +58,31 @@ return {
             "cd $dir && rustc $fileName && $dir/$fileNameWithoutExt",
           },
         },
-      })
+      }
     end,
   },
   {
     "natecraddock/workspaces.nvim",
     config = function()
-      require("workspaces").setup({
+      require("workspaces").setup {
         hooks = {
           open = { "Neotree toggle" },
         },
-      })
+      }
     end,
   },
-
+  {
+    "hrsh7th/nvim-cmp",
+    opts = function()
+      local cmp = require "cmp"
+      cmp.setup {
+        mapping = cmp.mapping.preset.insert {
+          ["<C-l>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+        },
+      }
+    end,
+  },
+  --
   -- {
   --   "windwp/nvim-autopairs",
   --   config = function(plugin, opts)
