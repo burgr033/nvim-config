@@ -23,6 +23,8 @@ end
 ---@param quiet? boolean Whether or not to notify on completion of reloading
 ---@return boolean # True if the reload was successful, False otherwise
 function M.reload(quiet)
+  local was_modifiable = vim.opt.modifiable:get()
+  if not was_modifiable then vim.opt.modifiable = true end
   local core_modules = { "astronvim.bootstrap", "astronvim.options", "astronvim.mappings" }
   local modules = vim.tbl_filter(function(module) return module:find "^user%." end, vim.tbl_keys(package.loaded))
 
@@ -36,6 +38,7 @@ function M.reload(quiet)
       success = false
     end
   end
+  if not was_modifiable then vim.opt.modifiable = false end
   if not quiet then -- if not quiet, then notify of result
     if success then
       M.notify("AstroNvim successfully reloaded", vim.log.levels.INFO)
@@ -274,6 +277,7 @@ function M.set_mappings(map_table, base)
           keymap_opts[1] = nil
         end
         if not cmd or keymap_opts.name then -- if which-key mapping, queue it
+          if not keymap_opts.name then keymap_opts.name = keymap_opts.desc end
           if not M.which_key_queue then M.which_key_queue = {} end
           if not M.which_key_queue[mode] then M.which_key_queue[mode] = {} end
           M.which_key_queue[mode][keymap] = keymap_opts
