@@ -135,7 +135,21 @@ end
 ---@param type number|nil The type of the notification (:help vim.log.levels)
 ---@param opts? table The nvim-notify options to use (:help notify-options)
 function M.notify(msg, type, opts)
-  vim.schedule(function() vim.notify(msg, type, M.extend_tbl({ title = "AstroNvim" }, opts)) end)
+  vim.schedule(function()
+    vim.notify(
+      msg,
+      type,
+      M.extend_tbl({
+        title = "AstroNvim",
+        on_open = function(win)
+          vim.bo[vim.api.nvim_win_get_buf(win)].filetype = "markdown"
+          vim.wo[win].spell = false
+          vim.wo[win].conceallevel = 3
+          vim.wo[win].concealcursor = "n"
+        end,
+      }, opts)
+    )
+  end)
 end
 
 --- Trigger an AstroNvim user event
