@@ -135,21 +135,7 @@ end
 ---@param type number|nil The type of the notification (:help vim.log.levels)
 ---@param opts? table The nvim-notify options to use (:help notify-options)
 function M.notify(msg, type, opts)
-  vim.schedule(function()
-    vim.notify(
-      msg,
-      type,
-      M.extend_tbl({
-        title = "AstroNvim",
-        on_open = function(win)
-          vim.bo[vim.api.nvim_win_get_buf(win)].filetype = "markdown"
-          vim.wo[win].spell = false
-          vim.wo[win].conceallevel = 3
-          vim.wo[win].concealcursor = "n"
-        end,
-      }, opts)
-    )
-  end)
+  vim.schedule(function() vim.notify(msg, type, M.extend_tbl({ title = "AstroNvim" }, opts)) end)
 end
 
 --- Trigger an AstroNvim user event
@@ -161,6 +147,8 @@ end
 --- Open a URL under the cursor with the current operating system
 ---@param path string The path of the file to open with the system opener
 function M.system_open(path)
+  -- TODO: REMOVE WHEN DROPPING NEOVIM <0.10
+  if vim.ui.open then return vim.ui.open(path) end
   local cmd
   if vim.fn.has "win32" == 1 and vim.fn.executable "explorer" == 1 then
     cmd = { "cmd.exe", "/K", "explorer" }
@@ -212,7 +200,7 @@ function M.alpha_button(sc, txt)
       position = "center",
       text = txt,
       shortcut = sc,
-      cursor = 5,
+      cursor = -2,
       width = 36,
       align_shortcut = "right",
       hl = "DashboardCenter",
@@ -226,7 +214,7 @@ end
 ---@return boolean available # Whether the plugin is available
 function M.is_available(plugin)
   local lazy_config_avail, lazy_config = pcall(require, "lazy.core.config")
-  return lazy_config_avail and lazy_config.plugins[plugin] ~= nil
+  return lazy_config_avail and lazy_config.spec.plugins[plugin] ~= nil
 end
 
 --- Resolve the options table for a given plugin with lazy
@@ -270,6 +258,21 @@ function M.which_key_register()
       M.which_key_queue = nil
     end
   end
+end
+
+--- Get an empty table of mappings with a key for each map mode
+---@return table<string,table> # a table with entries for each map mode
+function M.empty_map_table()
+  local maps = {}
+  for _, mode in ipairs { "", "n", "v", "x", "s", "o", "!", "i", "l", "c", "t" } do
+    maps[mode] = {}
+  end
+  if vim.fn.has "nvim-0.10.0" == 1 then
+    for _, abbr_mode in ipairs { "ia", "ca", "!a" } do
+      maps[abbr_mode] = {}
+    end
+  end
+  return maps
 end
 
 --- Table based API for setting keybindings
