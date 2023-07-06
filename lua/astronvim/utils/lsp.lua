@@ -85,6 +85,12 @@ M.setup = function(server)
   end
   local opts = M.config(server)
   local setup_handler = setup_handlers[server] or setup_handlers[1]
+
+  -- HACK: set up neoconf before setting up any language servers if it's not setup
+  if not package.loaded["neoconf"] and utils.is_available "neoconf.nvim" then
+    require("neoconf").setup(utils.plugin_opts "neoconf.nvim")
+  end
+
   if not vim.tbl_contains(astronvim.lsp.skip_setup, server) and setup_handler then setup_handler(server, opts) end
 end
 
@@ -128,27 +134,12 @@ end
 ---@param client table The LSP client details when attaching
 ---@param bufnr number The buffer that the LSP client is attaching to
 M.on_attach = function(client, bufnr)
-  local lsp_mappings = {
-    n = {
-      ["<leader>ld"] = {
-        function() vim.diagnostic.open_float() end,
-        desc = "Hover diagnostics",
-      },
-      ["[d"] = {
-        function() vim.diagnostic.goto_prev() end,
-        desc = "Previous diagnostic",
-      },
-      ["]d"] = {
-        function() vim.diagnostic.goto_next() end,
-        desc = "Next diagnostic",
-      },
-      ["gl"] = {
-        function() vim.diagnostic.open_float() end,
-        desc = "Hover diagnostics",
-      },
-    },
-    v = {},
-  }
+  local lsp_mappings = require("astronvim.utils").empty_map_table()
+
+  lsp_mappings.n["<leader>ld"] = { function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" }
+  lsp_mappings.n["[d"] = { function() vim.diagnostic.goto_prev() end, desc = "Previous diagnostic" }
+  lsp_mappings.n["]d"] = { function() vim.diagnostic.goto_next() end, desc = "Next diagnostic" }
+  lsp_mappings.n["gl"] = { function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" }
 
   if is_available "telescope.nvim" then
     lsp_mappings.n["<leader>lD"] =
