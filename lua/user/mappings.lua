@@ -34,7 +34,6 @@ return {
     ["<leader>rr"] = { "<cmd>RunCode<cr>", desc = "Run Code" },
     ["<leader>rf"] = { "<cmd>RunFile<cr>", desc = "Run File" },
     ["<leader>rc"] = { "<cmd>RunClose<cr>", desc = "Close Runner" },
-    ["<F8>"] = { "<cmd>RunCode<cr>", desc = "Run Code" },
     ["<C-F7>"] = { "<cmd>RunCode<cr>", desc = "Run Code (legacy Keybinding)" },
     ["<leader>b"] = { name = " Buffers" },
     ["<leader>W"] = { "<cmd>Telescope workspaces<cr>", desc = " Workspaces" },
