@@ -267,6 +267,7 @@ if is_available "telescope.nvim" then
           prompt_title = "Config Files",
           search_dirs = search_dirs,
           cwd = cwd,
+          follow = true,
         } -- call telescope
       end
     end,
@@ -395,7 +396,7 @@ if is_available "nvim-dap" then
     maps.n["<leader>dE"] = {
       function()
         vim.ui.input({ prompt = "Expression: " }, function(expr)
-          if expr then require("dapui").eval(expr) end
+          if expr then require("dapui").eval(expr, { enter = true }) end
         end)
       end,
       desc = "Evaluate Input",
