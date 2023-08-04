@@ -122,26 +122,6 @@ return {
         vim.opt[option] = value
       end
     end
-    local rt = require "rust-tools"
-    rt.setup {
-      tools = {
-        executor = require("rust-tools.executors").toggleterm,
-      },
-      hover_actions = {
-        auto_focus = true,
-      },
-      server = {
-        on_attach = function(_, bufnr) end,
-        settings = {
-          ["rust-analyzer"] = {
-            check = {
-              command = "clippy",
-              extraArgs = { "--all", "--", "-w", "clippy::all" },
-            },
-          },
-        },
-      },
-    }
     local telescope = require "telescope"
     local utils = require "astronvim.utils"
     utils.conditional_func(telescope.load_extension, utils.is_available "workspaces.nvim", "workspaces")
