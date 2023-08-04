@@ -1,5 +1,25 @@
 local utils = require "astronvim.utils"
 local rt = require "rust-tools"
+rt.setup {
+  tools = {
+    executor = require("rust-tools.executors").toggleterm,
+  },
+  hover_actions = {
+    auto_focus = true,
+  },
+  server = {
+    on_attach = function(_, bufnr) end,
+    settings = {
+      ["rust-analyzer"] = {
+        check = {
+          command = "clippy",
+          extraArgs = { "--all", "--", "-w", "clippy::all" },
+        },
+      },
+    },
+  },
+}
+
 local custom_map = { i = {}, n = {}, v = {}, t = {} }
 custom_map.n["<localleader>r"] = {
   function() rt.hover_actions.hover_actions() end,
