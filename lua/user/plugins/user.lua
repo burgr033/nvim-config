@@ -19,6 +19,26 @@ return {
     cmd = "Alpha",
   },
   {
+    "nvim-neorg/neorg",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    ft = { "norg" },
+    config = function()
+      require("neorg").setup {
+        load = {
+          ["core.defaults"] = {},  -- Loads default behaviour
+          ["core.concealer"] = {}, -- Adds pretty icons to your documents
+          ["core.dirman"] = {      -- Manages Neorg workspaces
+            config = {
+              workspaces = {
+                example = "C://_workspace//Projects/example_workspaces/gtd",
+              },
+            },
+          },
+        },
+      }
+    end,
+  },
+  {
     "lervag/vimtex",
     dependencies = { "hrsh7th/cmp-omni" },
     ft = { "tex", "bib" },
@@ -29,7 +49,7 @@ return {
         callback = function() vim.cmd [[VimtexCompile]] end,
       })
       vim.g.vimtex_quickfix_ignore_filters =
-        { "Package typearea Warning", "MakeUppercase", "MT@gobble@to@nil", "Runaway argument?" }
+      { "Package typearea Warning", "MakeUppercase", "MT@gobble@to@nil", "Runaway argument?" }
       vim.g.vimtex_compiler_latexmk = {
         build_dir = "out",
         options = {
