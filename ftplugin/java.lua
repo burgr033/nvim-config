@@ -5,25 +5,30 @@ local config = {
 	cmd = {
 
 		"java",
-		'-Declipse.application=org.eclipse.jdt.ls.core.id1',
-		'-Dosgi.bundles.defaultStartLevel=4',
-		'-Declipse.product=org.eclipse.jdt.ls.core.product',
-		'-Dlog.protocol=true',
-		'-Dlog.level=ALL',
-		'-Xmx1g',
+		"-Declipse.application=org.eclipse.jdt.ls.core.id1",
+		"-Dosgi.bundles.defaultStartLevel=4",
+		"-Declipse.product=org.eclipse.jdt.ls.core.product",
+		"-Dlog.protocol=true",
+		"-Dlog.level=ALL",
+		"-Xmx1g",
 		"--add-modules=ALL-SYSTEM",
-		"--add-opens","java.base/java.util=ALL-UNNAMED",
-		"--add-opens","java.base/java.lang=ALL-UNNAMED",
-		"-jar","C:\\_workspace\\scoop\\apps\\jdtls\\current\\plugins\\org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar",
-		"-configuration","C:\\_workspace\\scoop\\apps\\jdtls\\current\\config_win",
-		"-data","C:\\_workspace\\temp",
+		"--add-opens",
+		"java.base/java.util=ALL-UNNAMED",
+		"--add-opens",
+		"java.base/java.lang=ALL-UNNAMED",
+		"-jar",
+		"C:\\_workspace\\scoop\\apps\\jdtls\\current\\plugins\\org.eclipse.equinox.launcher_1.6.500.v20230717-2134.jar",
+		"-configuration",
+		"C:\\_workspace\\scoop\\apps\\jdtls\\current\\config_win",
+		"-data",
+		"C:\\_workspace\\temp",
 
 		-- 💀
 		-- See `data directory configuration` section in the README
 		-- '-data', '/path/to/unique/per/project/workspace/folder'
 	},
 
-	root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew", "pom.xml" }),
+	root_dir = require("jdtls.setup").find_root { ".git", "mvnw", "gradlew", "pom.xml" },
 
 	-- Here you can configure eclipse.jdt.ls specific settings
 	-- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
