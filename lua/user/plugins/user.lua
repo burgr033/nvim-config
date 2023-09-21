@@ -99,4 +99,11 @@ return {
     "natecraddock/workspaces.nvim",
     cmd = "Telescope workspaces",
   },
+  {
+    "akinsho/toggleterm.nvim",
+    opts = {
+      direction = "horizontal",
+      float_opts = { border = "rounded" },
+    },
+  },
 }
