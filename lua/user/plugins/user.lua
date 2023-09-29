@@ -19,26 +19,6 @@ return {
     cmd = "Alpha",
   },
   {
-    "nvim-neorg/neorg",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    ft = { "norg" },
-    config = function()
-      require("neorg").setup {
-        load = {
-          ["core.defaults"] = {},  -- Loads default behaviour
-          ["core.concealer"] = {}, -- Adds pretty icons to your documents
-          ["core.dirman"] = {      -- Manages Neorg workspaces
-            config = {
-              workspaces = {
-                example = "C://_workspace//Projects/example_workspaces/gtd",
-              },
-            },
-          },
-        },
-      }
-    end,
-  },
-  {
     "lervag/vimtex",
     dependencies = { "hrsh7th/cmp-omni" },
     ft = { "tex", "bib" },
@@ -90,10 +70,6 @@ return {
   {
     "CRAG666/code_runner.nvim",
     cmd = "RunCode",
-  },
-  {
-    "mfussenegger/nvim-jdtls",
-    ft = "java",
   },
   {
     "natecraddock/workspaces.nvim",
