@@ -34,9 +34,11 @@ return {
     ["<leader>rr"] = { "<cmd>RunCode<cr>", desc = "Run Code" },
     ["<leader>rf"] = { "<cmd>RunFile<cr>", desc = "Run File" },
     ["<leader>rc"] = { "<cmd>RunClose<cr>", desc = "Close Runner" },
-    ["<C-F7>"] = { "<cmd>RunCode<cr>", desc = "Run Code (legacy Keybinding)" },
     ["<leader>b"] = { name = " Buffers" },
-    ["<leader>W"] = { "<cmd>Telescope workspaces<cr>", desc = " Workspaces" },
+    ["<leader>W"] = { name = " Workspaces" },
+    ["<leader>Wl"] = { "<cmd>Telescope workspaces<cr>", desc = "list Workspaces" },
+    ["<leader>Wo"] = { "<cmd>WorkspacesOpen<cr>", desc = "open Workspace" },
+    ["<leader>Wa"] = { "<cmd>WorkspacesAdd<cr>", desc = "add current directory to Workspaces" },
     ["<leader>lj"] = {
       function() vim.lsp.buf.definition() end,
       desc = "Jump to Definition",
@@ -46,6 +48,11 @@ return {
   },
   i = {},
   t = {
+    ["<C-Left>"] = { "<C-w>h", desc = "Move to left split" },
+    ["<C-Down>"] = { "<C-w>j", desc = "Move to below split" },
+    ["<C-Up>"] = { "<C-w>k", desc = "Move to above split" },
+    ["<C-Right>"] = { "<C-w>l", desc = "Move to right split" },
+
     -- setting a mapping to false will disable it
     -- ["<esc>"] = false,
   },

@@ -2,6 +2,7 @@ return {
   -- customize alpha options
   {
     "goolord/alpha-nvim",
+    dependencies = { "cigh033/alpha-nvim-bofh-excuse" },
     opts = function(_, opts)
       -- customize the dashboard header
       opts.section.header.val = {
@@ -16,7 +17,7 @@ return {
       local get_icon = require("astronvim.utils").get_icon
       opts.section.buttons.val = {
         button("LDR n  ", get_icon("FileNew", 2, true) .. "New File  "),
-        button("LDR W  ", get_icon("FolderOpen", 2, true) .. "Workspaces  "),
+        button("LDR W o", get_icon("FolderOpen", 2, true) .. "Workspaces  "),
         button("LDR f o", get_icon("DefaultFile", 2, true) .. "Recents  "),
         button("LDR f f", get_icon("Search", 2, true) .. "Find File  "),
         button("LDR f w", get_icon("WordFile", 2, true) .. "Find Word  "),
@@ -39,40 +40,18 @@ return {
   {
     "L3MON4D3/LuaSnip",
     config = function(plugin, opts)
-      require "plugins.configs.luasnip" (plugin, opts)                                       -- include the default astronvim config that calls the setup call
+      require "plugins.configs.luasnip"(plugin, opts) -- include the default astronvim config that calls the setup call
       -- add more custom luasnip configuration such as filetype extend or custom snippets
       require("luasnip.loaders.from_vscode").lazy_load { paths = { "./lua/user/snippets" } } -- load snippets paths
       require("luasnip.loaders.from_snipmate").lazy_load { paths = { "./lua/user/snippets" } }
     end,
   },
   {
-    "CRAG666/code_runner.nvim",
+    "nvim-telescope/telescope.nvim",
     config = function()
-      require("code_runner").setup {
-        mode = "toggleterm",
-        before_run_filetype = function() vim.cmd ":w" end,
-        filetype = {
-          cpp = {
-            "cd $dir && clang++ $fileName --target=x86_64-w64-windows-gnu -o $fileNameWithoutExt && $dir/$fileNameWithoutExt",
-          },
-          ps1 = {
-            "cd $dir && powershell -file $fileName",
-          },
-          rust = {
-            "cd $dir && rustc $fileName && $dir/$fileNameWithoutExt",
-          },
-        },
-      }
-    end,
-  },
-  {
-    "natecraddock/workspaces.nvim",
-    config = function()
-      require("workspaces").setup {
-        hooks = {
-          open = { "Neotree toggle" },
-        },
-      }
+      local telescope = require "telescope"
+      local utils = require "astronvim.utils"
+      utils.conditional_func(telescope.load_extension, utils.is_available "workspaces.nvim", "workspaces")
     end,
   },
   {
@@ -86,46 +65,4 @@ return {
       }
     end,
   },
-  --
-  -- {
-  --   "windwp/nvim-autopairs",
-  --   config = function(plugin, opts)
-  --     require "plugins.configs.nvim-autopairs"(plugin, opts) -- include the default astronvim config that calls the setup call
-  --     -- add more custom autopairs configuration such as custom rules
-  --     local npairs = require "nvim-autopairs"
-  --     local Rule = require "nvim-autopairs.rule"
-  --     local cond = require "nvim-autopairs.conds"
-  --     npairs.add_rules(
-  --       {
-  --         Rule("$", "$", { "tex", "latex" })
-  --           -- don't add a pair if the next character is %
-  --           :with_pair(cond.not_after_regex "%%")
-  --           -- don't add a pair if  the previous character is xxx
-  --           :with_pair(
-  --             cond.not_before_regex("xxx", 3)
-  --           )
-  --           -- don't move right when repeat character
-  --           :with_move(cond.none())
-  --           -- don't delete if the next character is xx
-  --           :with_del(cond.not_after_regex "xx")
-  --           -- disable adding a newline when you press <cr>
-  --           :with_cr(cond.none()),
-  --       },
-  --       -- disable for .vim files, but it work for another filetypes
-  --       Rule("a", "a", "-vim")
-  --     )
-  --   end,
-  -- },
-  -- By adding to the which-key config and using our helper function you can add more which-key registered bindings
-  -- {
-  --   "folke/which-key.nvim",
-  --   config = function(plugin, opts)
-  --     require "plugins.configs.which-key"(plugin, opts) -- include the default astronvim config that calls the setup call
-  --     -- Add bindings which show up as group name
-  --     local wk = require "which-key"
-  --     wk.register({
-  --       b = { name = "Buffer" },
-  --     }, { mode = "n", prefix = "<leader>" })
-  --   end,
-  -- },
 }

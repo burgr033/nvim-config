@@ -11,12 +11,7 @@ return {
   -- },
   {
     "mfussenegger/nvim-dap",
-    enabled = true,
-  },
-  {
-    "goolord/alpha-nvim",
-    dependencies = { "cigh033/alpha-nvim-bofh-excuse" },
-    cmd = "Alpha",
+    enabled = false,
   },
   {
     "lervag/vimtex",
@@ -66,14 +61,54 @@ return {
   {
     "icewind/ltex-client.nvim",
     ft = { "tex", "bib" },
+    config = function()
+      require("ltex-client").setup()
+      require("lspconfig").ltex.setup {
+        settings = {
+          ltex = {
+            language = "de-DE",
+          },
+        },
+      }
+    end,
+  },
+  {
+    "folke/todo-comments.nvim",
+    cmd = { "TodoTrouble", "TodoTelescope" },
+    event = "User AstroFile",
+    config = true,
   },
   {
     "CRAG666/code_runner.nvim",
     cmd = "RunCode",
+    config = function()
+      require("code_runner").setup {
+        mode = "toggleterm",
+        before_run_filetype = function() vim.cmd ":w" end,
+        filetype = {
+          cpp = {
+            "cd $dir && clang++ $fileName --target=x86_64-w64-windows-gnu -o $fileNameWithoutExt && $dir/$fileNameWithoutExt",
+          },
+          ps1 = {
+            "cd $dir && powershell -file $fileName",
+          },
+          rust = {
+            "cd $dir && rustc $fileName && $dir/$fileNameWithoutExt",
+          },
+        },
+      }
+    end,
   },
   {
     "natecraddock/workspaces.nvim",
-    cmd = "Telescope workspaces",
+    cmd = { "WorkspacesAdd", "WorkspacesList", "WorkspacesOpen" },
+    config = function()
+      require("workspaces").setup {
+        hooks = {
+          open = { "Neotree toggle" },
+        },
+      }
+    end,
   },
   {
     "akinsho/toggleterm.nvim",
