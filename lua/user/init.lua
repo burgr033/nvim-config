@@ -17,7 +17,7 @@ return {
     },
   },
   -- Set colorscheme to use
-  colorscheme = "catppuccin-mocha",
+  colorscheme = "astrodark",
   -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
   diagnostics = {
     virtual_text = true,
@@ -93,9 +93,7 @@ return {
   -- Configure require("lazy").setup() options
   lazy = {
     defaults = { lazy = true },
-    change_detection = {
-      enabled = false,
-    },
+    change_detection = { enabled = false },
     performance = {
       rtp = {
         -- customize default disabled vim plugins
@@ -118,33 +116,10 @@ return {
         shellquote = "",
         shellxquote = "",
       }
-
       for option, value in pairs(powershell_options) do
         vim.opt[option] = value
       end
     end
-    local clangd_capabilities = vim.lsp.protocol.make_client_capabilities()
-    clangd_capabilities.offsetEncoding = "utf-8"
-    require("lspconfig").clangd.setup { capabilities = clangd_capabilities }
-    require("cmp").setup {
-      experimental = {
-        ghost_text = true,
-      },
-      --   completion = {
-      --     completeopt = "menu,menuone,noinsert",
-      --   },
-    }
-    local telescope = require "telescope"
-    local utils = require "astronvim.utils"
-    utils.conditional_func(telescope.load_extension, utils.is_available "workspaces.nvim", "workspaces")
-    require("ltex-client").setup()
-    require("lspconfig").ltex.setup {
-      settings = {
-        ltex = {
-          language = "de-DE",
-        },
-      },
-    }
     vim.api.nvim_create_user_command(
       "InitDefaultMason",
       "MasonInstall codelldb gitlint intelephense json-lsp jsonlint lemminx lua-language-server php-debug-adapter phpstan python-lsp-server rust-analyzer rustfmt selene xmlformatter yaml-language-server yamlfmt yamllint",
