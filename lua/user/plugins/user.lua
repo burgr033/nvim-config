@@ -24,7 +24,7 @@ return {
         callback = function() vim.cmd [[VimtexCompile]] end,
       })
       vim.g.vimtex_quickfix_ignore_filters =
-      { "Package typearea Warning", "MakeUppercase", "MT@gobble@to@nil", "Runaway argument?" }
+        { "Package typearea Warning", "MakeUppercase", "MT@gobble@to@nil", "Runaway argument?" }
       vim.g.vimtex_compiler_latexmk = {
         build_dir = "out",
         options = {
@@ -100,66 +100,6 @@ return {
           },
         },
       }
-    end,
-  },
-  { -- This plugin
-    "Zeioth/compiler.nvim",
-    cmd = { "CompilerOpen", "CompilerToggleResults", "CompilerRedo" },
-    dependencies = { "stevearc/overseer.nvim" },
-    opts = {},
-  },
-  { -- The task runner we use
-    "stevearc/overseer.nvim",
-    commit = "19aac0426710c8fc0510e54b7a6466a03a1a7377",
-    cmd = { "CompilerOpen", "CompilerToggleResults", "CompilerRedo" },
-    opts = {
-      task_list = {
-        direction = "bottom",
-        min_height = 25,
-        max_height = 25,
-        default_detail = 1,
-        bindings = { ["q"] = function() vim.cmd "OverseerClose" end },
-      },
-    },
-  },
-  {
-    "natecraddock/workspaces.nvim",
-    cmd = { "WorkspacesAdd", "WorkspacesList", "WorkspacesOpen" },
-    config = function()
-      require("workspaces").setup {
-        hooks = {
-          open = { "Neotree toggle" },
-        },
-      }
-    end,
-  },
-
-  {
-    "cigh033/compspec.nvim",
-    lazy = false,
-    config = function()
-      local computers = {
-        DEFAULT = {
-          treesitter = {
-            "git_config",
-            "git_rebase",
-            "gitattributes",
-            "gitcommit",
-            "gitignore",
-            "json",
-            "jsonc",
-            "lua",
-            "yaml",
-            "ssh_config",
-            "toml",
-          },
-        },
-
-        dcfeefdfcceddacccaeddc = {
-          treesitter = { "awk" },
-        },
-      }
-      require("compspec").ensureTSPackages(computers)
     end,
   },
   {
