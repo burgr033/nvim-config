@@ -24,7 +24,7 @@ return {
         callback = function() vim.cmd [[VimtexCompile]] end,
       })
       vim.g.vimtex_quickfix_ignore_filters =
-        { "Package typearea Warning", "MakeUppercase", "MT@gobble@to@nil", "Runaway argument?" }
+      { "Package typearea Warning", "MakeUppercase", "MT@gobble@to@nil", "Runaway argument?" }
       vim.g.vimtex_compiler_latexmk = {
         build_dir = "out",
         options = {
@@ -114,6 +114,17 @@ return {
         background = "hard",
         dim_inactive_windows = true,
         ui_contrast = "high",
+      }
+    end,
+  },
+  {
+    "natecraddock/workspaces.nvim",
+    cmd = { "WorkspacesAdd", "WorkspacesList", "WorkspacesOpen" },
+    config = function()
+      require("workspaces").setup {
+        hooks = {
+          open = { "Neotree toggle" },
+        },
       }
     end,
   },
