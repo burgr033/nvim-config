@@ -4,6 +4,13 @@ custom_map.n["<localleader>a"] = {
   function() vim.lsp.buf.code_action() end,
   desc = "LSP code action",
 }
+vim.wo.wrap = true
+custom_map.n["<down>"] = { "gj" }
+custom_map.n["<up>"] = { "gk" }
+
+custom_map.n["j"] = { "gj" }
+custom_map.n["k"] = { "gk" }
+
 custom_map.n["<localleader>c"] = { "<cmd>VimtexCompile<CR>", desc = "Compile" }
 custom_map.n["<localleader>v"] = { "<cmd>VimtexView<CR>", desc = "View" }
 
@@ -16,6 +23,7 @@ utils.set_mappings(astronvim.user_opts("mappings", custom_map))
 --   \ 'custom_patterns': ['\\[DNBXFA]ref\*\?{[^}]*$']
 --   \ }
 -- ]]
+--
 --
 -- local cmp = require "cmp"i
 -- cmp.setup {
