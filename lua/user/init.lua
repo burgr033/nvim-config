@@ -20,7 +20,7 @@ return {
   colorscheme = "nord",
   -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
   diagnostics = {
-    virtual_text = true,
+    virtual_text = false,
     update_in_insert = true,
     underline = true,
   },
@@ -48,18 +48,6 @@ return {
     end,
   }),
   lsp = {
-    config = {
-      rust_analyzer = {
-        settings = {
-          ["rust-analyzer"] = {
-            cargo = {
-              extraEnv = { CARGO_PROFILE_RUST_ANALYZERE_INHERITS = "dev" },
-              extraArgs = { "--profile", "rust-analyzer" },
-            },
-          },
-        },
-      },
-    },
     -- customize lsp formatting options
     formatting = {
       -- control auto formatting on save
@@ -75,7 +63,7 @@ return {
       disabled = { -- disable formatting capabilities for the listed language servers
         -- disable lua_ls formatting capability if you want to use StyLua to format your lua code
         -- "lua_ls",
-        },
+      },
       timeout_ms = 1000, -- default format timeout
       -- filter = function(client) -- fully override the default formatting function
       --   return true
@@ -116,16 +104,5 @@ return {
         vim.opt[option] = value
       end
     end
-    vim.api.nvim_create_user_command(
-      "InitDefaultMason",
-      "MasonInstall codelldb gitlint intelephense json-lsp jsonlint lemminx lua-language-server php-debug-adapter phpstan python-lsp-server rust-analyzer rustfmt selene xmlformatter yaml-language-server yamlfmt yamllint",
-      { desc = "Init my default mason packages" }
-    )
-
-    vim.api.nvim_create_user_command(
-      "InitDefaultTreeSitter",
-      "TSInstall! gitcommit html javascript lua php python rust vim bash dockerfile markdown make json toml yaml",
-      { desc = "Init my default TS packages" }
-    )
   end,
 }
