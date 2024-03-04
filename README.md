@@ -14,7 +14,7 @@ scoop install 7zip curl fd fzf gdu gzip lazygit less make mingw neovim nodejs ri
 # install pynvim via pip
 pip install pynvim
 # clone config
-git clone https://github.com/cigh033/nvim-config $ENV:LOCALAPPDATA\nvim
+git clone https://github.com/burgr033/nvim-config $ENV:LOCALAPPDATA\nvim
 # launch neovim and let Lazy & Mason do their magic
 nvim
 ```
@@ -29,7 +29,7 @@ mv ~/.cache/nvim ~/.cache/nvim.bck
 # install dependencies and neovim
 sudo pacman -Sy --needed curl fd git neovim ripgrep fzf python python-setuptools python-pip python-pynvim python-virtualenvwrapper gdu lazygit bottom unzip base-devel wget
 # clone config
-git clone https://github.com/cigh033/nvim-config ~/.config/nvim
+git clone https://github.com/burgr033/nvim-config ~/.config/nvim
 # launch neovim and let Lazy & Mason do their magic
 nvim
 ```

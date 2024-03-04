@@ -2,7 +2,7 @@ return {
   -- customize alpha options
   {
     "goolord/alpha-nvim",
-    dependencies = { "cigh033/alpha-nvim-bofh-excuse" },
+    dependencies = { "burgr033/alpha-nvim-bofh-excuse" },
     opts = function(_, opts)
       -- customize the dashboard header
       opts.section.header.val = {
