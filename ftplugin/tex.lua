@@ -1,23 +1,21 @@
-local utils = require "astronvim.utils"
-local custom_map = { i = {}, n = {}, v = {}, t = {} }
-custom_map.n["<localleader>a"] = {
-  function() vim.lsp.buf.code_action() end,
-  desc = "LSP code action",
-}
-vim.wo.wrap = true
-custom_map.n["<down>"] = { "gj" }
-custom_map.n["<up>"] = { "gk" }
-
-custom_map.n["j"] = { "gj" }
-custom_map.n["k"] = { "gk" }
-
-custom_map.n["<localleader>c"] = { "<cmd>VimtexCompile<CR>", desc = "Compile" }
-custom_map.n["<localleader>v"] = { "<cmd>VimtexView<CR>", desc = "View" }
-
-custom_map.n["<F8>"] = { "<cmd>VimtexCompile<CR>" }
-
-utils.set_mappings(astronvim.user_opts("mappings", custom_map))
-
+-- local custom_map = { i = {}, n = {}, v = {}, t = {} }
+-- custom_map.n['<localleader>a'] = {
+--   function()
+--     vim.lsp.buf.code_action()
+--   end,
+--   desc = 'LSP code action',
+-- }
+-- vim.wo.wrap = true
+-- custom_map.n['<down>'] = { 'gj' }
+-- custom_map.n['<up>'] = { 'gk' }
+--
+-- custom_map.n['j'] = { 'gj' }
+-- custom_map.n['k'] = { 'gk' }
+--
+-- vim.keymap.set('n', '<C-right>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+-- custom_map.n['<localleader>c'] = { '<cmd>VimtexCompile<CR>', desc = 'Compile' }
+-- custom_map.n['<localleader>v'] = { '<cmd>VimtexView<CR>', desc = 'View' }
+--
 -- vim.cmd [[
 -- let g:vimtex_complete_ref = {
 --   \ 'custom_patterns': ['\\[DNBXFA]ref\*\?{[^}]*$']
