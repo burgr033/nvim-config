@@ -10,6 +10,14 @@ return {
   --   end,
   -- },
   {
+    "dgagn/diagflow.nvim",
+    event = "BufWinEnter",
+    opts = {
+      show_borders = true,
+      scope = "line",
+    },
+  },
+  {
     "mfussenegger/nvim-dap",
     enabled = false,
   },
@@ -24,7 +32,7 @@ return {
         callback = function() vim.cmd [[VimtexCompile]] end,
       })
       vim.g.vimtex_quickfix_ignore_filters =
-      { "Package typearea Warning", "MakeUppercase", "MT@gobble@to@nil", "Runaway argument?" }
+        { "Package typearea Warning", "MakeUppercase", "MT@gobble@to@nil", "Runaway argument?" }
       vim.g.vimtex_compiler_latexmk = {
         build_dir = "out",
         options = {
