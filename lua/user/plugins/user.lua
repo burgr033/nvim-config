@@ -1,17 +1,13 @@
 return {
-  -- You can also add new plugins here as well:
-  -- Add plugins, the lazy syntax
-  -- "andweeb/presence.nvim",
-  -- {
-  --   "ray-x/lsp_signature.nvim",
-  --   event = "BufRead",
-  --   config = function()
-  --     require("lsp_signature").setup()
-  --   end,
-  -- },
+  {
+    "burgr033/mf-runner.nvim",
+    cmd = { "MFROpen", "MFRRun", "MFRCreate" },
+    dependencies = { "nvim-telescope/telescope.nvim", "akinsho/toggleterm.nvim" },
+    opts = {},
+  },
   {
     "dgagn/diagflow.nvim",
-    event = "BufWinEnter",
+    event = "LspAttach",
     opts = {
       show_borders = true,
       scope = "line",
@@ -32,7 +28,7 @@ return {
         callback = function() vim.cmd [[VimtexCompile]] end,
       })
       vim.g.vimtex_quickfix_ignore_filters =
-        { "Package typearea Warning", "MakeUppercase", "MT@gobble@to@nil", "Runaway argument?" }
+      { "Package typearea Warning", "MakeUppercase", "MT@gobble@to@nil", "Runaway argument?" }
       vim.g.vimtex_compiler_latexmk = {
         build_dir = "out",
         options = {
@@ -85,30 +81,6 @@ return {
     cmd = { "TodoTrouble", "TodoTelescope" },
     event = "User AstroFile",
     config = true,
-  },
-  {
-    "CRAG666/code_runner.nvim",
-    cmd = "RunCode",
-    config = function()
-      require("code_runner").setup {
-        mode = "toggleterm",
-        before_run_filetype = function() vim.cmd ":w" end,
-        filetype = {
-          cpp = {
-            "cd $dir && clang++ $fileName --target=x86_64-w64-windows-gnu -o $fileNameWithoutExt && $dir/$fileNameWithoutExt",
-          },
-          ps1 = {
-            "cd $dir && powershell -file $fileName",
-          },
-          go = {
-            "cd $dir && go run $fileName",
-          },
-          rust = {
-            "cd $dir && rustc $fileName && $dir/$fileNameWithoutExt",
-          },
-        },
-      }
-    end,
   },
   {
     "natecraddock/workspaces.nvim",
