@@ -31,9 +31,10 @@ return {
     -- tables with the `name` key will be registered with which-key if it's installed
     -- this is useful for naming menus
     ["<leader>r"] = { name = "♞ Run" },
-    ["<leader>rr"] = { "<cmd>RunCode<cr>", desc = "Run Code" },
-    ["<leader>rf"] = { "<cmd>RunFile<cr>", desc = "Run File" },
-    ["<leader>rc"] = { "<cmd>RunClose<cr>", desc = "Close Runner" },
+    ["<leader>rr"] = { "<cmd>MFROpen<cr>", desc = "Run Code" },
+    ["<leader>rc"] = { "<cmd>MFRRun clean<cr>", desc = "Run clean" },
+    ["<leader>rb"] = { "<cmd>MFRRun build<cr>", desc = "Run build" },
+    ["<leader>rm"] = { "<cmd>MFRCreate<cr>", desc = "Create Makefile" },
     ["<leader>b"] = { name = " Buffers" },
     ["<leader>W"] = { name = " Workspaces" },
     ["<leader>Wl"] = { "<cmd>Telescope workspaces<cr>", desc = "list Workspaces" },
