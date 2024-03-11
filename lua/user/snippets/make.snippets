@@ -1,12 +1,11 @@
-snippet Makefile-go
-	BINARY_NAME=example
-	build:
-		GOARCH=amd64 GOOS=darwin go build -o bin/${BINARY_NAME}-darwin
-		GOARCH=amd64 GOOS=linux go build -o bin/${BINARY_NAME}-linux
-		GOARCH=amd64 GOOS=windows go build -o bin/${BINARY_NAME}-Windows_NT
+snippet go-makefile
+	BINARY_NAME=${1:example}
+
+  build:
+		go build -o bin/$(BINARY_NAME)
 
 	run: build
-		bin/${BINARY_NAME}-$(OS)
+		bin/$(BINARY_NAME)
 
 	clean:
 		go clean
