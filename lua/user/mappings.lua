@@ -1,4 +1,4 @@
--- Mapping data with "desc" stored directly by vim.keymap.set().
+-- mapping data with "desc" stored directly by vim.keymap.set().
 --
 -- Please use this mappings table to set keyboard mapping since this is the
 -- lower level configuration and more robust one. (which-key will
@@ -18,6 +18,10 @@ return {
       desc = "Pick to close",
     },
     ["q"] = { "<nop>", desc = "I don't use macros and press it accidentally all the time" },
+    ["ö"] = { ":", desc = "" },
+    ["ü"] = { "{", desc = "" },
+    ["+"] = { "}", desc = "" },
+    ["-"] = { "/", desc = "" },
     ["<C-S-Up>"] = { "<cmd>resize +2<cr>", desc = "Increase Window height" },
     ["<C-S-Down>"] = { "<cmd>resize -2<cr>", desc = "Decrease Window height" },
     ["<C-S-Left>"] = { "<cmd>vertical resize +2<cr>", desc = "Increase Window width" },
@@ -44,6 +48,7 @@ return {
       function() vim.lsp.buf.definition() end,
       desc = "Jump to Definition",
     },
+
     -- quick save
     -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
   },
