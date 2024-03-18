@@ -17,36 +17,13 @@ return {
     },
   },
   -- Set colorscheme to use
-  colorscheme = "onedark",
+  colorscheme = "tokyonight-night",
   -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
   diagnostics = {
     virtual_text = false,
     update_in_insert = true,
-    underline = false,
+    underline = true,
   },
-  -- vim.api.nvim_create_autocmd("CursorHold", {
-  --   buffer = bufnr,
-  --   callback = function()
-  --     local float_opts = {
-  --       focusable = false,
-  --       close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-  --       border = "rounded",
-  --       source = "always", -- show source in diagnostic popup window
-  --       prefix = " ",
-  --     }
-  --
-  --     if not vim.b.diagnostics_pos then vim.b.diagnostics_pos = { nil, nil } end
-  --
-  --     local cursor_pos = vim.api.nvim_win_get_cursor(0)
-  --     if
-  --         (cursor_pos[1] ~= vim.b.diagnostics_pos[1] or cursor_pos[2] ~= vim.b.diagnostics_pos[2])
-  --         and #vim.diagnostic.get() > 0
-  --     then
-  --       vim.diagnostic.open_float(nil, float_opts)
-  --     end
-  --     vim.b.diagnostics_pos = cursor_pos
-  --   end,
-  -- }),
   lsp = {
     -- customize lsp formatting options
     formatting = {
@@ -89,8 +66,12 @@ return {
   -- augroups/autocommands and custom filetypes also this just pure lua so
   -- anything that doesn't fit in the normal config locations above can go here
   polish = function()
+    -- Windows Options
     if vim.fn.has "win32" == 1 then
+      -- TS use zig because llvm and gcc are borked
       require("nvim-treesitter.install").compilers = { "zig" }
+
+      -- shell options
       local powershell_options = {
         shell = vim.fn.executable "pwsh" == 1 and "pwsh" or "powershell",
         shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
