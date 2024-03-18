@@ -1,10 +1,19 @@
 return {
   {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {
+      dim_inactive = true,
+    },
+  },
+  {
     "burgr033/mf-runner.nvim",
     cmd = { "MFROpen", "MFRRun", "MFREdit" },
     dependencies = { "nvim-telescope/telescope.nvim", "akinsho/toggleterm.nvim" },
     opts = {},
   },
+  -- Test
   {
     "kylechui/nvim-surround",
     version = "*",
