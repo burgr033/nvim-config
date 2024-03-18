@@ -7,13 +7,9 @@ return {
   },
   {
     "kylechui/nvim-surround",
-    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    version = "*",
     event = "VeryLazy",
-    config = function()
-      require("nvim-surround").setup {
-        -- Configuration here, or leave empty to use defaults
-      }
-    end,
+    opts = {},
   },
   {
     "dgagn/diagflow.nvim",
@@ -22,6 +18,11 @@ return {
       show_borders = true,
       scope = "line",
     },
+  },
+  {
+    "folke/todo-comments.nvim",
+    event = "User AstroFile",
+    opts = {},
   },
   {
     "mfussenegger/nvim-dap",
@@ -38,7 +39,7 @@ return {
         callback = function() vim.cmd [[VimtexCompile]] end,
       })
       vim.g.vimtex_quickfix_ignore_filters =
-      { "Package typearea Warning", "MakeUppercase", "MT@gobble@to@nil", "Runaway argument?" }
+        { "Package typearea Warning", "MakeUppercase", "MT@gobble@to@nil", "Runaway argument?" }
       vim.g.vimtex_compiler_latexmk = {
         build_dir = "out",
         options = {
@@ -86,12 +87,7 @@ return {
       }
     end,
   },
-  {
-    "folke/todo-comments.nvim",
-    cmd = { "TodoTrouble", "TodoTelescope" },
-    event = "User AstroFile",
-    config = true,
-  },
+
   {
     "natecraddock/workspaces.nvim",
     cmd = { "WorkspacesAdd", "WorkspacesList", "WorkspacesOpen" },
@@ -102,17 +98,5 @@ return {
         },
       }
     end,
-  },
-  {
-    "akinsho/toggleterm.nvim",
-    opts = {
-      direction = "horizontal",
-      float_opts = { border = "rounded" },
-    },
-  },
-  {
-    "folke/trouble.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    opts = {},
   },
 }
