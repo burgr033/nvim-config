@@ -34,27 +34,18 @@ return {
   {
     "L3MON4D3/LuaSnip",
     config = function(plugin, opts)
-      require "plugins.configs.luasnip"(plugin, opts)
+      require "plugins.configs.luasnip" (plugin, opts)
       require("luasnip.loaders.from_snipmate").lazy_load { paths = { "./lua/user/snippets" } }
+      require "user."
     end,
   },
+
   {
     "nvim-telescope/telescope.nvim",
     config = function()
       local telescope = require "telescope"
       local utils = require "astronvim.utils"
       utils.conditional_func(telescope.load_extension, utils.is_available "workspaces.nvim", "workspaces")
-    end,
-  },
-  {
-    "hrsh7th/nvim-cmp",
-    opts = function()
-      local cmp = require "cmp"
-      cmp.setup {
-        mapping = cmp.mapping.preset.insert {
-          ["<C-l>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-        },
-      }
     end,
   },
 }

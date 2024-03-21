@@ -1,13 +1,5 @@
 return {
   {
-    "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 1000,
-    opts = {
-      dim_inactive = true,
-    },
-  },
-  {
     "burgr033/mf-runner.nvim",
     cmd = { "MFROpen", "MFRRun", "MFREdit" },
     dependencies = { "nvim-telescope/telescope.nvim", "akinsho/toggleterm.nvim" },
@@ -48,7 +40,7 @@ return {
         callback = function() vim.cmd [[VimtexCompile]] end,
       })
       vim.g.vimtex_quickfix_ignore_filters =
-        { "Package typearea Warning", "MakeUppercase", "MT@gobble@to@nil", "Runaway argument?" }
+      { "Package typearea Warning", "MakeUppercase", "MT@gobble@to@nil", "Runaway argument?" }
       vim.g.vimtex_compiler_latexmk = {
         build_dir = "out",
         options = {
