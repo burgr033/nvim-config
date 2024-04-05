@@ -12,7 +12,6 @@ return {
         "██████████████████████████████████████████████████████████████████████████",
       }
       opts.section.header.opts.hl = "DashboardHeader"
-      -- local button = require "astroui".alpha
       local get_icon = require("astroui").get_icon
       local button = require("alpha.themes.dashboard").button
       opts.section.buttons.val = {
