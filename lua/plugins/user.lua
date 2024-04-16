@@ -6,7 +6,14 @@ return {
     event = "VeryLazy",
     opts = {},
   },
-  { "shortcuts/no-neck-pain.nvim", version = "*", event = "User Astrofile" },
+  {
+    "shortcuts/no-neck-pain.nvim",
+    version = "*",
+    event = "User Astrofile",
+    config = function()
+      vim.keymap.set("n", "<Leader>Nn", require("no-neck-pain").toggle, { desc = "Toggle No Neck Pain" })
+    end,
+  },
   {
     "Exafunction/codeium.vim",
     event = "User AstroFile",
