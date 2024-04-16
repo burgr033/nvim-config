@@ -6,6 +6,7 @@ return {
     event = "VeryLazy",
     opts = {},
   },
+  { "shortcuts/no-neck-pain.nvim", version = "*", event = "User Astrofile" },
   {
     "Exafunction/codeium.vim",
     event = "User AstroFile",
