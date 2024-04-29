@@ -104,12 +104,18 @@ return {
     end,
   },
   {
+    "kosayoda/nvim-lightbulb",
+    event = "LspAttach",
+
+    opts = {},
+  },
+  {
     "natecraddock/workspaces.nvim",
     cmd = { "WorkspacesAdd", "WorkspacesList", "WorkspacesOpen" },
     config = function()
       require("workspaces").setup {
         hooks = {
-          open = { "Neotree toggle" },
+          open = { function() require("mini.files").open() end },
         },
       }
     end,
