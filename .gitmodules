@@ -1,0 +1,3 @@
+[submodule "snippets"]
+	path = snippets
+	url = https://github.com/burgr033/nvim-config-snippets
