@@ -15,7 +15,19 @@ return {
     end,
   },
   {
+    "leoluz/nvim-dap-go",
+    ft = "go",
+    config = function()
+      require("dap-go").setup {
+        delve = {
+          detached = false,
+        },
+      }
+    end,
+  },
+  {
     "tris203/precognition.nvim",
+    branch = "inlay_hints",
     event = "VeryLazy",
     config = {},
   },
