@@ -26,12 +26,6 @@ return {
     end,
   },
   {
-    "tris203/precognition.nvim",
-    branch = "inlay_hints",
-    event = "VeryLazy",
-    config = {},
-  },
-  {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
     event = "User AstroFile",
