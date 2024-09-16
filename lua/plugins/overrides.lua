@@ -1,5 +1,39 @@
 ---@type LazySpec
 return {
+  { "neo-tree/neo-tree.nvim", enabled = false },
+  {
+    "stevearc/oil.nvim",
+    dependencies = {
+      {
+        "AstroNvim/astrocore",
+        opts = {
+          mappings = {
+            n = {
+              ["<Leader>e"] = { function() require("oil").toggle_float() end, desc = "Open folder in Oil" },
+            },
+          },
+        },
+      },
+    },
+    config = function(_, opts) require("oil").setup(opts) end,
+    opts = {
+      keymaps = {
+        ["."] = { require("oil.actions").cd, desc = ":cd to the current oil directory" },
+        ["<BS>"] = { require("oil.actions").parent, desc = "Navigate to the parent path" },
+        ["<S-h>"] = { require("oil.actions").toggle_hidden, desc = "Toggle hidden files and directories" },
+        ["<S-p>"] = {
+          require("oil.actions").toggle_preview,
+          desc = "Open the entry under the cursor in a preview window, or close the preview window if already open",
+        },
+      },
+      columns = {
+        "icon",
+      },
+      win_options = {
+        signcolumn = "yes:2",
+      },
+    },
+  },
   {
     "goolord/alpha-nvim",
     dependencies = { "burgr033/alpha-nvim-bofh-excuse" },
