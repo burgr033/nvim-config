@@ -1,7 +1,7 @@
 ---@type LazySpec
 return {
   {
-    "refractalize/oil-git-status.nvim",
+    "burgr033/oil-git-status.nvim",
     dependencies = {
       "stevearc/oil.nvim",
     },
