@@ -1,11 +1,9 @@
 ---@type LazySpec
 return {
   {
-    "burgr033/oil-git-status.nvim",
-    dependencies = {
-      "stevearc/oil.nvim",
-    },
-    config = true,
+    "FerretDetective/oil-git-signs.nvim",
+    ft = "oil",
+    opts = {},
   },
   {
     "kylechui/nvim-surround",
@@ -133,7 +131,7 @@ return {
     config = function()
       require("workspaces").setup {
         hooks = {
-          open = { "Neotree toggle" },
+          open = { "Telescope find_files" },
         },
       }
     end,
