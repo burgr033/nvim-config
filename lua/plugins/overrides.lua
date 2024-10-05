@@ -1,5 +1,10 @@
 ---@type LazySpec
 return {
+  { "nvim-java/nvim-java", opts = {
+    jdk = {
+      auto_install = false,
+    },
+  } },
   { "danymat/neogen", config = function() require("neogen").setup { snippet_engine = "luasnip" } end },
   { "neo-tree/neo-tree.nvim", enabled = false },
   {
@@ -18,8 +23,21 @@ return {
     },
     config = function(_, opts) require("oil").setup(opts) end,
     opts = {
+      view_options = {
+        is_hidden_file = function(name, bufnr)
+          if vim.startswith(name, "..") then return false end
+          return vim.startswith(name, ".")
+        end,
+      },
       keymaps = {
-        ["."] = { require("oil.actions").cd, desc = ":cd to the current oil directory" },
+        ["yy"] = {
+          desc = "Copy name without symbol",
+          require("oil.actions").copy_entry_filename,
+        },
+        ["yp"] = {
+          desc = "Copy filepath to system clipboard",
+          callback = function() require("oil.actions").copy_entry_path.callback() end,
+        },
         ["<BS>"] = { require("oil.actions").parent, desc = "Navigate to the parent path" },
         ["<S-h>"] = { require("oil.actions").toggle_hidden, desc = "Toggle hidden files and directories" },
         ["<S-p>"] = {
