@@ -12,40 +12,32 @@ return {
     opts = {},
   },
   {
-    "shortcuts/no-neck-pain.nvim",
-    version = "*",
-    event = "User Astrofile",
-    config = function()
-      vim.keymap.set("n", "<Leader>Nn", require("no-neck-pain").toggle, { desc = "Toggle No Neck Pain" })
-    end,
-  },
-  {
     "leoluz/nvim-dap-go",
     ft = "go",
-    config = function()
+    opts = {
       require("dap-go").setup {
         delve = {
           detached = false,
         },
-      }
-    end,
-  },
-  {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "User AstroFile",
-    opts = {
-      suggestion = {
-        auto_trigger = true,
-        debounce = 150,
-        keymap = {
-          accept = "<C-g>",
-          next = "<C-.>",
-          prev = "<C-,",
-        },
       },
     },
   },
+  -- {
+  --   "zbirenbaum/copilot.lua",
+  --   cmd = "Copilot",
+  --   event = "User AstroFile",
+  --   opts = {
+  --     suggestion = {
+  --       auto_trigger = true,
+  --       debounce = 150,
+  --       keymap = {
+  --         accept = "<C-g>",
+  --         next = "<C-.>",
+  --         prev = "<C-,",
+  --       },
+  --     },
+  --   },
+  -- },
   {
     "burgr033/mf-runner.nvim",
     cmd = { "MFROpen", "MFRRun", "MFREdit" },

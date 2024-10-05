@@ -89,10 +89,15 @@ return {
       },
       i = {},
       t = {
-        ["<C-Left>"] = { "<C-w>h", desc = "Move to left split" },
-        ["<C-Down>"] = { "<C-w>j", desc = "Move to below split" },
-        ["<C-Up>"] = { "<C-w>k", desc = "Move to above split" },
-        ["<C-Right>"] = { "<C-w>l", desc = "Move to right split" },
+        ["<esc>"] = { "<C-\\><C-n>", desc = "move out of term mode" },
+        ["<C-S-Up>"] = { "<cmd>resize +2<cr>", desc = "Increase Window height" },
+        ["<C-S-Down>"] = { "<cmd>resize -2<cr>", desc = "Decrease Window height" },
+        ["<C-S-Left>"] = { "<cmd>vertical resize +2<cr>", desc = "Increase Window width" },
+        ["<C-S-Right>"] = { "<cmd>vertical resize -2<cr>", desc = "Decrease Window width" },
+        ["<C-Left>"] = { "<cmd>wincmd h<CR>", desc = "Move to left split" },
+        ["<C-Down>"] = { "<cmd>wincmd j<CR>", desc = "Move to below split" },
+        ["<C-Up>"] = { "<cmd>wincmd k<CR>", desc = "Move to above split" },
+        ["<C-Right>"] = { "<cmd>wincmd l<CR>", desc = "Move to right split" },
 
         -- setting a mapping to false will disable it
         -- ["<esc>"] = false,
