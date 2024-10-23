@@ -1,6 +1,11 @@
 ---@type LazySpec
 return {
   {
+    "rachartier/tiny-inline-diagnostic.nvim",
+    event = "LspAttach",
+    config = function() require("tiny-inline-diagnostic").setup() end,
+  },
+  {
     "FerretDetective/oil-git-signs.nvim",
     ft = "oil",
     opts = {},
@@ -22,22 +27,6 @@ return {
       },
     },
   },
-  -- {
-  --   "zbirenbaum/copilot.lua",
-  --   cmd = "Copilot",
-  --   event = "User AstroFile",
-  --   opts = {
-  --     suggestion = {
-  --       auto_trigger = true,
-  --       debounce = 150,
-  --       keymap = {
-  --         accept = "<C-g>",
-  --         next = "<C-.>",
-  --         prev = "<C-,",
-  --       },
-  --     },
-  --   },
-  -- },
   {
     "burgr033/mf-runner.nvim",
     cmd = { "MFROpen", "MFRRun", "MFREdit" },
