@@ -35,10 +35,25 @@ return {
   },
   {
     "lervag/vimtex",
-    dependencies = { "hrsh7th/cmp-omni" },
+    dependencies = {
+      {
+        "AstroNvim/astrocore",
+        opts = {
+          mappings = {
+            n = {
+              ["<Down>"] = { "g<Down>" },
+              ["<Up>"] = { "g<Up>" },
+            },
+          },
+        },
+      },
+    },
+    cmd = { "VimtexInverseSearch" },
     ft = { "tex", "bib" },
     opts = { patterns = { "*.tex" } },
+
     config = function(_, opts)
+      vim.api.nvim_set_option_value("wrap", true, { win = 0 })
       vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
         pattern = opts.patterns,
         callback = function() vim.cmd [[VimtexCompile]] end,
@@ -66,7 +81,7 @@ return {
         ligatures = 1,
         cites = 1,
         fancy = 1,
-        spacing = 0, -- default: 1
+        spacing = 1, -- default: 1
         greek = 1,
         math_bounds = 1,
         math_delimiters = 1,
@@ -81,16 +96,7 @@ return {
   {
     "icewind/ltex-client.nvim",
     ft = { "tex", "bib" },
-    config = function()
-      require("ltex-client").setup()
-      require("lspconfig").ltex.setup {
-        settings = {
-          ltex = {
-            language = "de-DE",
-          },
-        },
-      }
-    end,
+    config = function() require("ltex-client").setup() end,
   },
   {
     "nvim-telescope/telescope.nvim",
