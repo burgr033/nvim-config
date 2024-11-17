@@ -1,10 +1,15 @@
 ---@type LazySpec
 return {
-  { "nvim-java/nvim-java", opts = {
-    jdk = {
-      auto_install = false,
+  {
+    "nvim-java/nvim-java",
+    lazy = true,
+    ft = "java",
+    opts = {
+      jdk = {
+        auto_install = false,
+      },
     },
-  } },
+  },
   { "danymat/neogen", config = function() require("neogen").setup { snippet_engine = "luasnip" } end },
   { "neo-tree/neo-tree.nvim", enabled = false },
   {
@@ -16,6 +21,7 @@ return {
           mappings = {
             n = {
               ["<Leader>e"] = { function() require("oil").toggle_float() end, desc = "Open folder in Oil" },
+              ["<Leader>O"] = false,
             },
           },
         },
@@ -91,7 +97,7 @@ return {
     config = function(plugin, opts)
       require "astronvim.plugins.configs.luasnip"(plugin, opts)
       require("luasnip.loaders.from_snipmate").lazy_load {
-        paths = { vim.fn.stdpath "config" .. "/lua/snippets" },
+        paths = { vim.fn.stdpath "config" .. "/snippets" },
       }
     end,
   },
