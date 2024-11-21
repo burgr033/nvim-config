@@ -26,7 +26,11 @@ return {
   {
     "icewind/ltex-client.nvim",
     ft = { "tex", "bib" },
-    config = function() require("ltex-client").setup() end,
+    config = function()
+      vim.g.tex_flavor = "latex"
+      vim.opt.wrap = true
+      require("ltex-client").setup {}
+    end,
   },
   {
     "kosayoda/nvim-lightbulb",
