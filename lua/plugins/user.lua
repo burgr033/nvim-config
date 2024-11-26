@@ -29,7 +29,7 @@ return {
     config = function()
       vim.g.tex_flavor = "latex"
       vim.opt.wrap = true
-      require("ltex-client").setup()
+      require("ltex-client").setup {}
     end,
   },
   {
