@@ -8,13 +8,18 @@
   "neoconf": {
     "plugins": {
       "lua_ls": {
+        "enabled_for_neovim_config": true,
         "enabled": true
       }
     }
   },
   "lspconfig": {
     "lua_ls": {
-      "Lua.format.enable": false
+      "Lua.diagnostics.disable": [
+        "missing-fields",
+        "unused-local"
+      ],
+      "Lua.format.enable": true
     }
   }
 }
