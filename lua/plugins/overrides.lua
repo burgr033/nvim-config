@@ -10,7 +10,7 @@ return {
       },
     },
   },
-  { "danymat/neogen", config = function() require("neogen").setup { snippet_engine = "luasnip" } end },
+  { "danymat/neogen",         config = function() require("neogen").setup { snippet_engine = "luasnip" } end },
   { "neo-tree/neo-tree.nvim", enabled = false },
   {
     "stevearc/oil.nvim",
@@ -95,7 +95,7 @@ return {
   {
     "L3MON4D3/LuaSnip",
     config = function(plugin, opts)
-      require "astronvim.plugins.configs.luasnip"(plugin, opts)
+      require "astronvim.plugins.configs.luasnip" (plugin, opts)
       require("luasnip.loaders.from_snipmate").lazy_load {
         paths = { vim.fn.stdpath "config" .. "/snippets" },
       }
