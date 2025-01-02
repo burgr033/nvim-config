@@ -4,7 +4,8 @@ return {
   -- colorscheme
   { import = "astrocommunity.colorscheme.tokyonight-nvim" },
   -- completion
-  { import = "astrocommunity.completion.magazine-nvim" },
+  -- { import = "astrocommunity.completion.magazine-nvim" },
+  { import = "astrocommunity.completion.blink-cmp" },
   -- diagnostics
   { import = "astrocommunity.diagnostics.tiny-inline-diagnostic-nvim" },
   { import = "astrocommunity.diagnostics.trouble-nvim" },
