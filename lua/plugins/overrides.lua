@@ -10,7 +10,7 @@ return {
       },
     },
   },
-  { "danymat/neogen",         config = function() require("neogen").setup { snippet_engine = "luasnip" } end },
+  { "danymat/neogen",         config = function() require("neogen").setup { snippet_engine = "nvim" } end },
   { "neo-tree/neo-tree.nvim", enabled = false },
   {
     "stevearc/oil.nvim",
