@@ -12,7 +12,8 @@ if vim.fn.has "win32" == 1 then
   -- shell options
   local powershell_options = {
     shell = vim.fn.executable "pwsh" == 1 and "pwsh" or "powershell",
-    shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
+    shellcmdflag =
+    "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
     shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait",
     shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode",
     shellquote = "",
@@ -31,10 +32,6 @@ if vim.env.SSH_TTY then
     copy = {
       ["+"] = osc52.copy "+",
       ["*"] = osc52.copy "*",
-    },
-    paste = {
-      ["+"] = osc52.paste "+",
-      ["*"] = osc52.paste "*",
     },
   }
 end
