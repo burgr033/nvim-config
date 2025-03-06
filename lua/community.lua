@@ -10,7 +10,6 @@ return {
   { import = "astrocommunity.diagnostics.trouble-nvim" },
   -- editing support
   { import = "astrocommunity.editing-support.neogen" },
-  { import = "astrocommunity.editing-support.zen-mode-nvim" },
   -- file explorer
   { import = "astrocommunity.file-explorer.oil-nvim" },
   -- lsp
