@@ -11,11 +11,11 @@ return {
     -- Configure core features of AstroNvim
     features = {
       large_buf = { size = 1024 * 256, lines = 10000 }, -- set global limits for large files for disabling features like treesitter
-      autopairs = true, -- enable autopairs at start
-      cmp = true, -- enable completion at start
-      diagnostics_mode = 3, -- diagnostic mode on start (0 = off, 1 = no signs/virtual text, 2 = no virtual text, 3 = on)
-      highlighturl = true, -- highlight URLs at start
-      notifications = true, -- enable notifications at start
+      autopairs = true,                                 -- enable autopairs at start
+      cmp = true,                                       -- enable completion at start
+      diagnostics_mode = 3,                             -- diagnostic mode on start (0 = off, 1 = no signs/virtual text, 2 = no virtual text, 3 = on)
+      highlighturl = true,                              -- highlight URLs at start
+      notifications = true,                             -- enable notifications at start
     },
     -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
     diagnostics = {
@@ -24,13 +24,13 @@ return {
     },
     -- vim options can be configured here
     options = {
-      opt = { -- vim.opt.<key>
-        scrolloff = 25, -- sets vim.opt.scrolloff
+      opt = {                  -- vim.opt.<key>
+        scrolloff = 25,        -- sets vim.opt.scrolloff
         relativenumber = true, -- sets vim.opt.relativenumber
-        number = true, -- sets vim.opt.number
-        spell = false, -- sets vim.opt.spell
-        signcolumn = "auto", -- sets vim.opt.signcolumn to auto
-        wrap = false, -- sets vim.opt.wrap
+        number = true,         -- sets vim.opt.number
+        spell = false,         -- sets vim.opt.spell
+        signcolumn = "auto",   -- sets vim.opt.signcolumn to auto
+        wrap = false,          -- sets vim.opt.wrap
         cmdheight = 1,
       },
       g = { -- vim.g.<key>
@@ -71,14 +71,11 @@ return {
         -- this is useful for naming menus
         ["<leader>r"] = { name = "♞ Run" },
         ["<leader>rr"] = { "<cmd>MFROpen<cr>", desc = "Run Code" },
-        ["<leader>rc"] = { "<cmd>MFRRun clean<cr>", desc = "Run clean" },
-        ["<leader>rb"] = { "<cmd>MFRRun build<cr>", desc = "Run build" },
+        ["<leader>rc"] = { "<cmd>MFRRun clean<cr>", desc = "Run make clean" },
+        ["<leader>rb"] = { "<cmd>MFRRun build<cr>", desc = "Run make build" },
+        ["<leader>ra"] = { "<cmd>MFRRun all<cr>", desc = "Run make all" },
         ["<leader>rm"] = { "<cmd>MFRCreate<cr>", desc = "Create Makefile" },
         ["<leader>b"] = { name = " Buffers" },
-        ["<leader>W"] = { name = " Workspaces" },
-        ["<leader>Wl"] = { "<cmd>Telescope workspaces<cr>", desc = "list Workspaces" },
-        ["<leader>Wo"] = { "<cmd>WorkspacesOpen<cr>", desc = "open Workspace" },
-        ["<leader>Wa"] = { "<cmd>WorkspacesAdd<cr>", desc = "add current directory to Workspaces" },
         ["<leader>lj"] = {
           function() vim.lsp.buf.definition() end,
           desc = "Jump to Definition",
