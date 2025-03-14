@@ -9,14 +9,6 @@ return {
     config = true,
   },
   {
-    "burgr033/mf-runner.nvim",
-    cmd = { "MFROpen", "MFRRun", "MFREdit" },
-    dependencies = {
-      "folke/snacks.nvim",
-    },
-    opts = {},
-  },
-  {
     "icewind/ltex-client.nvim",
     enabled = require("settings").Desktop(),
     ft = { "tex", "bib" },
