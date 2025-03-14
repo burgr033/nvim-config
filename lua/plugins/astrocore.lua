@@ -71,14 +71,11 @@ return {
         -- this is useful for naming menus
         ["<leader>r"] = { name = "♞ Run" },
         ["<leader>rr"] = { "<cmd>MFROpen<cr>", desc = "Run Code" },
-        ["<leader>rc"] = { "<cmd>MFRRun clean<cr>", desc = "Run clean" },
-        ["<leader>rb"] = { "<cmd>MFRRun build<cr>", desc = "Run build" },
-        ["<leader>rm"] = { "<cmd>MFRCreate<cr>", desc = "Create Makefile" },
+        ["<leader>rc"] = { "<cmd>MFRRun clean<cr>", desc = "Run make clean" },
+        ["<leader>rb"] = { "<cmd>MFRRun build<cr>", desc = "Run make build" },
+        ["<leader>ra"] = { "<cmd>MFRRun all<cr>", desc = "Run make all" },
+        ["<leader>rm"] = { "<cmd>MFREdit<cr>", desc = "Edit Makefile" },
         ["<leader>b"] = { name = " Buffers" },
-        ["<leader>W"] = { name = " Workspaces" },
-        ["<leader>Wl"] = { "<cmd>Telescope workspaces<cr>", desc = "list Workspaces" },
-        ["<leader>Wo"] = { "<cmd>WorkspacesOpen<cr>", desc = "open Workspace" },
-        ["<leader>Wa"] = { "<cmd>WorkspacesAdd<cr>", desc = "add current directory to Workspaces" },
         ["<leader>lj"] = {
           function() vim.lsp.buf.definition() end,
           desc = "Jump to Definition",

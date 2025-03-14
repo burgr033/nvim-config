@@ -1,7 +1,11 @@
 ---@type LazySpec
 return {
+  { "AstroNvim/astrocore", version = false, branch = "v2" },
+  { "AstroNvim/astrolsp", version = false, branch = "v3" },
+  { "AstroNvim/astroui", version = false, branch = "v3" },
   {
     "nvim-java/nvim-java",
+    enabled = require("settings").Desktop(),
     lazy = true,
     ft = "java",
     opts = {
@@ -10,7 +14,7 @@ return {
       },
     },
   },
-  { "danymat/neogen",         config = function() require("neogen").setup { snippet_engine = "nvim" } end },
+  { "danymat/neogen", config = function() require("neogen").setup { snippet_engine = "nvim" } end },
   { "neo-tree/neo-tree.nvim", enabled = false },
   {
     "stevearc/oil.nvim",
@@ -60,38 +64,30 @@ return {
     },
   },
   {
-    "goolord/alpha-nvim",
-    dependencies = { "burgr033/alpha-nvim-bofh-excuse" },
-    opts = function(_, opts)
-      opts.section.header.val = {
-        "██████████████████████████████████████████████████████████████████████████",
-        "██                                                                      ██",
-        "██  IF YOU WANT IMMEDIATE FEEDBACK, ALWAYS MAKE CHANGES IN PRODUCTION.  ██",
-        "██                                                                      ██",
-        "██████████████████████████████████████████████████████████████████████████",
-      }
-      opts.section.header.opts.hl = "DashboardHeader"
-      local get_icon = require("astroui").get_icon
-      local button = require("alpha.themes.dashboard").button
-      opts.section.buttons.val = {
-        button("LDR n  ", get_icon("FileNew", 2, true) .. "New File  "),
-        button("LDR W o", get_icon("FolderOpen", 2, true) .. "Workspaces  "),
-        button("LDR f o", get_icon("DefaultFile", 2, true) .. "Recents  "),
-        button("LDR f f", get_icon("Search", 2, true) .. "Find File  "),
-        button("LDR f w", get_icon("WordFile", 2, true) .. "Find Word  "),
-        button("LDR S l", get_icon("Refresh", 2, true) .. "Last Session  "),
-      }
-      opts.section.header.opts.hl = "DashboardFooter"
-      local excuse = require "alpha.excuse"
-      opts.section.footer.val = excuse()
-      opts.config.layout[1].val = vim.fn.max { 2, vim.fn.floor(vim.fn.winheight(0) * 0.2) }
-      opts.config.layout[3].val = 5
-      opts.config.opts.noautocmd = true
-      return opts
-    end,
-    config = function(_, opts) require("alpha").setup(opts.config) end,
+    "folke/snacks.nvim",
+    ---@type snacks.Config
+    opts = {
+      quickfile = {},
+      -- scroll = {},
+      -- words = {},
+      -- TODO: PICKER.PROJECTS
+      dashboard = {
+        preset = {
+          header = [[
+██████████████████████████████████████████████████████████████████████████
+██                                                                      ██
+██  IF YOU WANT IMMEDIATE FEEDBACK, ALWAYS MAKE CHANGES IN PRODUCTION.  ██
+██                                                                      ██
+██████████████████████████████████████████████████████████████████████████
+          ]],
+        },
+      },
+    },
+    keys = {
+      { "<leader>z", function() require("snacks").zen() end, desc = "Toggle Zen Mode" },
+      { "<leader>bS", function() require("snacks").scratch() end, desc = "Open Scratch" },
+    },
   },
-  -- You can also easily customize additional setup of plugins that is outside of the plugin's setup call
   {
     "L3MON4D3/LuaSnip",
     config = function(plugin, opts)
