@@ -2,7 +2,7 @@
 return {
   "AstroNvim/astrocommunity",
   -- colorscheme
-  { import = "astrocommunity.colorscheme.gruvbox-nvim" },
+  { import = "astrocommunity.colorscheme.gruvbox-baby" },
   -- completion
   { import = "astrocommunity.completion.blink-cmp" },
   -- diagnostics
