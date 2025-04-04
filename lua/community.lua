@@ -10,6 +10,7 @@ return {
   { import = "astrocommunity.diagnostics.trouble-nvim" },
   -- editing support
   { import = "astrocommunity.editing-support.neogen" },
+  { import = "astrocommunity.editing-support.yanky-nvim" },
   -- file explorer
   { import = "astrocommunity.file-explorer.oil-nvim" },
   -- lsp
@@ -29,6 +30,7 @@ return {
   -- recipes
   { import = "astrocommunity.recipes.heirline-mode-text-statusline" },
   { import = "astrocommunity.recipes.heirline-vscode-winbar" },
+  { import = "astrocommunity.recipes.picker-lsp-mappings" },
   -- test
   { import = "astrocommunity.test.neotest", enabled = require("settings").Desktop() },
 }
