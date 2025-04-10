@@ -35,7 +35,7 @@ return {
       },
       g = { -- vim.g.<key>
         -- configure global vim variables (vim.g)
-        -- NOTE: `mapleader` and `maplocalleader` must be set in the AstroNvim opts or before `lazy.setup`
+        -- NOTE: `mapLeader` and `maplocalleader` must be set in the AstroNvim opts or before `lazy.setup`
         -- This can be found in the `lua/lazy_setup.lua` file
       },
     },
@@ -43,8 +43,8 @@ return {
     -- NOTE: keycodes follow the casing in the vimdocs. For example, `<Leader>` must be capitalized
     mappings = {
       n = {
-        ["<leader>bn"] = { "<cmd>tabnew<cr>", desc = "New tab" },
-        ["<leader>bD"] = {
+        ["<Leader>bn"] = { "<cmd>tabnew<cr>", desc = "New tab" },
+        ["<Leader>bD"] = {
           function()
             require("astronvim.utils.status").heirline.buffer_picker(
               function(bufnr) require("astronvim.utils.buffer").close(bufnr) end
@@ -52,11 +52,9 @@ return {
           end,
           desc = "Pick to close",
         },
-        ["q"] = { "<nop>", desc = "I don't use macros and press it accidentally all the time" },
-        ["ö"] = { ":", desc = "" },
-        ["ü"] = { "{", desc = "" },
-        ["+"] = { "}", desc = "" },
-        ["-"] = { "/", desc = "" },
+        ["ü"] = { ":", desc = "" },
+        ["ö"] = { "{", desc = "" },
+        ["ä"] = { "}", desc = "" },
         ["<C-S-Up>"] = { "<cmd>resize +2<cr>", desc = "Increase Window height" },
         ["<C-S-Down>"] = { "<cmd>resize -2<cr>", desc = "Decrease Window height" },
         ["<C-S-Left>"] = { "<cmd>vertical resize +2<cr>", desc = "Increase Window width" },
@@ -69,14 +67,14 @@ return {
         ["<S-Tab>"] = { "<cmd>bprevious<cr>", desc = "Tab through Buffers" },
         -- tables with the `name` key will be registered with which-key if it's installed
         -- this is useful for naming menus
-        ["<leader>r"] = { name = "♞ Run" },
-        ["<leader>rr"] = { "<cmd>MFROpen<cr>", desc = "Run Code" },
-        ["<leader>rc"] = { "<cmd>MFRRun clean<cr>", desc = "Run make clean" },
-        ["<leader>rb"] = { "<cmd>MFRRun build<cr>", desc = "Run make build" },
-        ["<leader>ra"] = { "<cmd>MFRRun all<cr>", desc = "Run make all" },
-        ["<leader>rm"] = { "<cmd>MFREdit<cr>", desc = "Edit Makefile" },
-        ["<leader>b"] = { name = " Buffers" },
-        ["<leader>lj"] = {
+        ["<Leader>r"] = { name = "♞ Run" },
+        ["<Leader>rr"] = { "<cmd>MFROpen<cr>", desc = "Run Code" },
+        ["<Leader>rc"] = { "<cmd>MFRRun clean<cr>", desc = "Run make clean" },
+        ["<Leader>rb"] = { "<cmd>MFRRun build<cr>", desc = "Run make build" },
+        ["<Leader>ra"] = { "<cmd>MFRRun all<cr>", desc = "Run make all" },
+        ["<Leader>rm"] = { "<cmd>MFREdit<cr>", desc = "Edit Makefile" },
+        ["<Leader>b"] = { name = " Buffers" },
+        ["<Leader>lj"] = {
           function() vim.lsp.buf.definition() end,
           desc = "Jump to Definition",
         },
