@@ -85,8 +85,8 @@ return {
       },
     },
     keys = {
-      { "<Leader>z", function() require("snacks").zen() end, desc = "Toggle Zen Mode" },
-      { "<Leader>bS", function() require("snacks").scratch() end, desc = "Open Scratch" },
+      { "<leader>z", function() require("snacks").zen() end, desc = "Toggle Zen Mode" },
+      { "<leader>bS", function() require("snacks").scratch() end, desc = "Open Scratch" },
     },
   },
   {
