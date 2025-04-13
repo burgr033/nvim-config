@@ -40,6 +40,7 @@ return {
         end,
       },
       keymaps = {
+        ["."] = { "actions.cd", mode = "n" },
         ["yy"] = {
           desc = "Copy name without symbol",
           require("oil.actions").copy_entry_filename,
