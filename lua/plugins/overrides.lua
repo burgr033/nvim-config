@@ -14,7 +14,7 @@ return {
       },
     },
   },
-  { "danymat/neogen", config = function() require("neogen").setup { snippet_engine = "nvim" } end },
+  { "danymat/neogen",         config = function() require("neogen").setup { snippet_engine = "nvim" } end },
   { "neo-tree/neo-tree.nvim", enabled = false },
   {
     "stevearc/oil.nvim",
@@ -65,6 +65,13 @@ return {
     },
   },
   {
+    "Saghen/blink.cmp",
+    opts = {
+      sources = { default = { "lsp", "path", "snippets" } },
+      snippets = { preset = "default" },
+    },
+  },
+  {
     "folke/snacks.nvim",
     ---@type snacks.Config
     opts = {
@@ -85,17 +92,7 @@ return {
       },
     },
     keys = {
-      { "<leader>z", function() require("snacks").zen() end, desc = "Toggle Zen Mode" },
       { "<leader>bS", function() require("snacks").scratch() end, desc = "Open Scratch" },
     },
-  },
-  {
-    "L3MON4D3/LuaSnip",
-    config = function(plugin, opts)
-      require "astronvim.plugins.configs.luasnip"(plugin, opts)
-      require("luasnip.loaders.from_vscode").lazy_load {
-        paths = { vim.fn.stdpath "config" .. "/snippets" },
-      }
-    end,
   },
 }
