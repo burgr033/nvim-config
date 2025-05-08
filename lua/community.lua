@@ -10,7 +10,6 @@ return {
   { import = "astrocommunity.diagnostics.trouble-nvim" },
   -- editing support
   { import = "astrocommunity.editing-support.neogen" },
-  { import = "astrocommunity.editing-support.yanky-nvim" },
   -- file explorer
   { import = "astrocommunity.file-explorer.oil-nvim" },
   -- lsp
@@ -23,9 +22,9 @@ return {
   { import = "astrocommunity.motion.nvim-surround" },
   -- packs
   { import = "astrocommunity.pack.go", enabled = require("settings").Desktop() },
-  { import = "astrocommunity.pack.java", enabled = require("settings").Desktop() },
   { import = "astrocommunity.pack.ansible", enabled = require("settings").Server() },
   { import = "astrocommunity.pack.lua" },
+  { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.toml" },
   -- recipes
   { import = "astrocommunity.recipes.heirline-mode-text-statusline" },
