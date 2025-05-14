@@ -14,7 +14,7 @@ return {
       },
     },
   },
-  { "danymat/neogen",         config = function() require("neogen").setup { snippet_engine = "nvim" } end },
+  { "danymat/neogen", config = function() require("neogen").setup { snippet_engine = "nvim" } end },
   { "neo-tree/neo-tree.nvim", enabled = false },
   {
     "stevearc/oil.nvim",
@@ -76,9 +76,9 @@ return {
     ---@type snacks.Config
     opts = {
       quickfile = {},
-      -- scroll = {},
-      -- words = {},
-      -- TODO: PICKER.PROJECTS
+      scroll = {},
+      bigfile = {},
+      statuscolumn = {},
       dashboard = {
         preset = {
           header = [[

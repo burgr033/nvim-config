@@ -14,18 +14,18 @@ return {
   { import = "astrocommunity.file-explorer.oil-nvim" },
   { import = "astrocommunity.snippet.mini-snippets" },
   -- lsp
-  {
-    import = "astrocommunity.lsp.nvim-java",
-    enabled = require("settings").Desktop(),
-  },
-
+  -- {
+  --   import = "astrocommunity.lsp.nvim-java",
+  --   enabled = require("settings").Desktop(),
+  -- },
   -- motion
   { import = "astrocommunity.motion.nvim-surround" },
   -- packs
-  { import = "astrocommunity.pack.go",                              enabled = require("settings").Desktop() },
-  { import = "astrocommunity.pack.ansible",                         enabled = require("settings").Server() },
+  { import = "astrocommunity.pack.go", enabled = require("settings").Desktop() },
+  { import = "astrocommunity.pack.ansible", enabled = require("settings").Server() },
   { import = "astrocommunity.pack.lua" },
   { import = "astrocommunity.pack.python" },
+  -- { import = "astrocommunity.pack.java" },
   { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.toml" },
   -- recipes
@@ -33,5 +33,5 @@ return {
   { import = "astrocommunity.recipes.heirline-vscode-winbar" },
   { import = "astrocommunity.recipes.picker-lsp-mappings" },
   -- test
-  { import = "astrocommunity.test.neotest",                         enabled = require("settings").Desktop() },
+  { import = "astrocommunity.test.neotest", enabled = require("settings").Desktop() },
 }
