@@ -17,13 +17,8 @@ return {
     opts = {},
   },
   {
-    "icewind/ltex-client.nvim",
-    enabled = require("settings").Desktop(),
-    ft = { "tex", "bib" },
-    config = function()
-      vim.g.tex_flavor = "latex"
-      vim.opt.wrap = true
-      require("ltex-client").setup()
-    end,
+    "burgr033/presenterm.nvim",
+    ft = "markdown",
+    config = function() require("presenterm").setup {} end,
   },
 }
