@@ -19,6 +19,6 @@ return {
   {
     "burgr033/presenterm.nvim",
     ft = "markdown",
-    config = function() require("presenterm").setup {} end,
+    opts = {},
   },
 }
