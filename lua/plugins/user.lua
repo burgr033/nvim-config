@@ -1,7 +1,7 @@
----@type LazySpec
-local vault_path = "~/Documents/Vault"
-local ok, local_config = pcall(require, "machine_override")
-if ok and local_config.obsidian_vault_path then vault_path = local_config.obsidian_vault_path end
+local config = require "machine_override"
+local vault_path = config.obsidian_vault_path
+local todo_path = config.obsidian_todo_path
+local templates_path = config.templates_path
 return {
   {
     "refractalize/oil-git-status.nvim",
@@ -27,6 +27,7 @@ return {
   {
     "obsidian-nvim/obsidian.nvim",
     version = "*",
+    cmd = "ObsidianTodo",
     lazy = true,
     event = {
       "BufReadPre " .. vault_path .. "/*.md",
@@ -35,6 +36,15 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       {
+        "efirlus/quickadd.nvim",
+        config = function()
+          require("quickadd").setup {
+            todo_path = todo_path,
+          }
+        end,
+      },
+      {
+
         "AstroNvim/astrocore",
         opts = {
           mappings = {
@@ -78,7 +88,7 @@ return {
         name = "snacks.pick",
       },
       templates = {
-        folder = "90 meta/01 Templates",
+        folder = templates_path,
       },
       completion = {
         nvim_cmp = false,
@@ -96,6 +106,10 @@ return {
       end,
     },
     init = function()
+      vim.api.nvim_create_user_command("ObsidianTodo", function()
+        vim.cmd("edit " .. todo_path)
+        vim.cmd "normal! Go"
+      end, {})
       vim.api.nvim_create_autocmd("FileType", {
         pattern = "markdown",
         callback = function()
