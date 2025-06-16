@@ -1,4 +1,7 @@
 ---@type LazySpec
+local vault_path = "~/Documents/Vault"
+local ok, local_config = pcall(require, "machine_override")
+if ok and local_config.obsidian_vault_path then vault_path = local_config.obsidian_vault_path end
 return {
   {
     "refractalize/oil-git-status.nvim",
@@ -22,103 +25,86 @@ return {
     opts = {},
   },
   {
-    "nvim-neorg/neorg",
+    "obsidian-nvim/obsidian.nvim",
+    version = "*",
+    lazy = true,
+    event = {
+      "BufReadPre " .. vault_path .. "/*.md",
+      "BufNewFile " .. vault_path .. "/*.md",
+    },
     dependencies = {
+      "nvim-lua/plenary.nvim",
       {
         "AstroNvim/astrocore",
         opts = {
           mappings = {
             n = {
-              ["<Localleader>m"] = { false, desc = " metadata" },
-              ["<Localleader>mu"] = { ":Neorg update-metadata<CR>", desc = "Update Metadata" },
-              ["<Localleader>mi"] = { ":Neorg inject-metadata<CR>", desc = "Inject Metadata" },
-              ["<Localleader>c"] = { false, desc = " code" },
-              ["<Localleader>i"] = { false, desc = " insert" },
-              ["<Localleader>l"] = { false, desc = " list / link" },
-              ["<Localleader>lj"] = { "<Plug>(neorg.esupports.hop.hop-link.drop)<CR>", desc = " list / link" },
-              ["<Localleader>r"] = { false, desc = "󰉫 rename" },
-              ["<Localleader>rf"] = { ":Neorg lsp rename file<CR>", desc = "rename file" },
-              ["<Localleader>rh"] = { ":Neorg lsp rename heading<CR>", desc = "rename heading" },
-              ["<Localleader>n"] = { false, desc = " note" },
-              ["<Localleader>ni"] = { ":Neorg index<CR>", desc = "Toggle Index" },
-              ["<Localleader>t"] = { false, desc = " task" },
+              ["gf"] = {
+                function()
+                  if require("obsidian").util.cursor_on_markdown_link() then
+                    return "<Cmd>ObsidianFollowLink<CR>"
+                  else
+                    return "gf"
+                  end
+                end,
+                desc = "Obsidian Follow Link",
+              },
+              ["<Localleader>f"] = { false, desc = "find" },
+              ["<Localleader>ff"] = { "<cmd>Obsidian quick_switch<CR>", desc = "find files in vault" },
+              ["<Localleader>fw"] = { "<cmd>Obsidian search<CR>", desc = "find text in vault" },
+              ["<Localleader>ft"] = { "<cmd>Obsidian tags<CR>", desc = "find tags in vault" },
+              ["<Localleader>t"] = { "<cmd>Obsidian toc<CR>", desc = "toc" },
+              ["<Localleader>x"] = { "<cmd>Obsidian toggle_checkbox<CR>", desc = "checkbox" },
+              ["<Localleader>n"] = { false, desc = " new" },
+              ["<Localleader>nn"] = { "<cmd>Obsidian new<CR>", desc = "new note" },
+              ["<Localleader>l"] = { false, desc = " links" },
+              ["<Localleader>lj"] = { "<cmd>Obsidian follow_link<CR>", desc = "follow link" },
+              ["<Localleader>ln"] = { "<cmd>Obsidian link_new<CR>", desc = "new link" },
+              ["<Localleader>ne"] = { "<cmd>Obsidian extract_note<CR>", desc = "text2new note" },
+              ["<Localleader>nt"] = { "<cmd>Obsidian new<CR>", desc = "new note (template)" },
             },
           },
         },
       },
-      { "juniorsundar/neorg-extras", ft = "norg", cmd = "Neorg" },
-      { "benlubas/neorg-interim-ls", ft = "norg", cmd = "Neorg" },
-      { "benlubas/neorg-conceal-wrap", ft = "norg", cmd = "Neorg" },
     },
-    ft = "norg",
-    cmd = "Neorg",
-    build = ":Neorg sync-parsers",
+    opts = {
+      workspaces = {
+        {
+          name = "notes",
+          path = vault_path,
+        },
+      },
+      picker = {
+        name = "snacks.pick",
+      },
+      templates = {
+        folder = "90 meta/01 Templates",
+      },
+      completion = {
+        nvim_cmp = false,
+        blink = true,
+      },
+      note_id_func = function(title)
+        local suffix = ""
+        if title ~= nil then
+          -- If title is given, transform it into valid file name.
+          suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+        else
+          suffix = "new-note"
+        end
+        return tostring(suffix)
+      end,
+    },
     init = function()
-      -- Set line wrapping and spell check for .norg files
       vim.api.nvim_create_autocmd("FileType", {
-        pattern = "norg",
+        pattern = "markdown",
         callback = function()
           vim.wo.wrap = true
           vim.wo.linebreak = true
           vim.wo.breakindent = true
-          vim.wo.conceallevel = 3
-        end,
-      })
-      -- Set line wrapping and spell check for .norg files
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = "norg",
-        callback = function()
-          vim.wo.wrap = true
-          vim.wo.linebreak = true
-          vim.wo.breakindent = true
-          vim.wo.conceallevel = 3
+          vim.wo.conceallevel = 1
         end,
       })
     end,
-    opts = {
-      load = {
-        ["core.summary"] = {},
-        ["core.defaults"] = {},
-        ["core.qol.toc"] = {
-          config = {
-            auto_toc = {
-              open = true,
-            },
-          },
-        },
-        ["core.concealer"] = {},
-        ["core.keybinds"] = { default_keybinds = false },
-        ["core.esupports.metagen"] = {
-          config = {
-            author = "sb",
-          },
-        },
-        ["core.dirman"] = {
-          config = {
-            workspaces = {
-              notes = "~/Notes",
-            },
-            default_workspace = "notes",
-          },
-        },
-        ["core.completion"] = {
-          config = { engine = { module_name = "external.lsp-completion" } },
-        },
-        ["external.conceal-wrap"] = {},
-        ["external.interim-ls"] = {
-          config = {
-            completion_provider = {
-              enable = true,
-              documentation = true,
-              categories = false,
-              people = {
-                enable = false,
-                path = "people",
-              },
-            },
-          },
-        },
-      },
-    },
   },
 }
