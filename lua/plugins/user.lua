@@ -13,17 +13,6 @@ return {
     ft = "markdown",
     opts = {},
   },
-  {
-    "nvim-java/nvim-java",
-    enabled = require("settings").Desktop(),
-    lazy = true,
-    ft = "java",
-    opts = {
-      jdk = {
-        auto_install = false,
-      },
-    },
-  },
   { "danymat/neogen", config = function() require("neogen").setup { snippet_engine = "nvim" } end },
   {
     "Saghen/blink.cmp",
