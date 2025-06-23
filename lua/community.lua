@@ -28,6 +28,8 @@ return {
   -- { import = "astrocommunity.pack.java" },
   { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.toml" },
+
+  { import = "astrocommunity.media.vim-wakatime" },
   -- recipes
   { import = "astrocommunity.recipes.heirline-mode-text-statusline" },
   { import = "astrocommunity.recipes.heirline-vscode-winbar" },
