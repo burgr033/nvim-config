@@ -9,7 +9,7 @@ if success and type(machine_override_config) == "table" then
 else
   -- Either pcall failed or module didn't return a table, use defaults
   vault_path = "~/Documents/Vault"
-  todo_path = "~/Documents/vault/todo.md"
+  todo_path = "~/Documents/Vault/todo.md"
   templates_path = vault_path .. "/90 meta/01 Templates"
 end
 
