@@ -1,6 +1,6 @@
 local success, config = pcall(require, "machine_override")
 local vault_path = success and config.obsidian_vault_path or "~/Documents/Vault"
-local todo_path = success and config.obsidian_todo_path or "~/Documents/vault/todo.md"
+local todo_path = success and config.obsidian_todo_path or "~/Documents/Vault/todo.md"
 local templates_path = success and config.templates_path or vault_path .. "/" .. "/90 meta/01 Templates"
 
 return {
