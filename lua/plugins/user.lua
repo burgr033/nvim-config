@@ -26,7 +26,6 @@ return {
     ---@type snacks.Config
     opts = {
       quickfile = {},
-      scroll = {},
       bigfile = {},
       statuscolumn = {},
       dashboard = {
