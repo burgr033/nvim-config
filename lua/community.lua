@@ -25,14 +25,13 @@ return {
   { import = "astrocommunity.pack.ansible", enabled = require("settings").Server() },
   { import = "astrocommunity.pack.lua" },
   { import = "astrocommunity.pack.python" },
+  { import = "astrocommunity.pack.java" },
   { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.toml" },
 
   { import = "astrocommunity.recipes.heirline-mode-text-statusline" },
   { import = "astrocommunity.recipes.heirline-vscode-winbar" },
   { import = "astrocommunity.recipes.picker-lsp-mappings" },
-
-  { import = "astrocommunity.snippet.mini-snippets" },
-
-  { import = "astrocommunity.test.neotest", enabled = require("settings").Desktop() },
+  -- test
+  { import = "astrocommunity.test.neotest",                           enabled = require("settings").Desktop() },
 }
