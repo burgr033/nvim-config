@@ -26,10 +26,6 @@ return {
       },
       keymaps = {
         ["."] = { "actions.cd", mode = "n" },
-        ["yy"] = {
-          desc = "Copy name without symbol",
-          require("oil.actions").copy_entry_filename,
-        },
         ["yp"] = {
           desc = "Copy filepath to system clipboard",
           callback = function() require("oil.actions").copy_entry_path.callback() end,
