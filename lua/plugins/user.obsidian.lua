@@ -8,9 +8,9 @@ if success and type(machine_override_config) == "table" then
   templates_path = machine_override_config.templates_path or (vault_path .. "/90 meta/01 Templates")
 else
   -- Either pcall failed or module didn't return a table, use defaults
-  vault_path = "~/Documents/Vault"
-  todo_path = "~/Documents/Vault/todo.md"
-  templates_path = vault_path .. "/90 meta/01 Templates"
+  vault_path = vim.fn.expand "~/Documents/Vault"
+  todo_path = vim.fn.expand "~/Documents/Vault/todo.md"
+  templates_path = vim.fn.expand(vault_path .. "/90 meta/01 Templates")
 end
 
 ---@type LazySpec
@@ -20,8 +20,8 @@ return {
   cmd = "ObsidianTodo",
   lazy = true,
   event = {
-    "BufReadPre " .. vault_path .. "/*.md",
-    "BufNewFile " .. vault_path .. "/*.md",
+    "BufReadPre " .. vault_path .. "/*",
+    "BufNewFile " .. vault_path .. "/*",
   },
   dependencies = {
     "nvim-lua/plenary.nvim",
