@@ -18,7 +18,7 @@ if vim.fn.has "win32" == 1 then
   end
 end
 
-if vim.env.SSH_TTY then
+if vim.env.SSH_TTY or vim.fn.has "wsl" then
   vim.o.clipboard = "unnamedplus"
   local osc52 = require "vim.ui.clipboard.osc52"
   local function paste()
