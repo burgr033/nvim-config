@@ -21,11 +21,11 @@ return {
 
   -- { import = "astrocommunity.media.vim-wakatime" },
 
-  { import = "astrocommunity.pack.go",                              enabled = require("settings").Desktop() },
-  { import = "astrocommunity.pack.ansible",                         enabled = require("settings").Server() },
+  { import = "astrocommunity.pack.go" },
+  { import = "astrocommunity.pack.ansible" },
   { import = "astrocommunity.pack.lua" },
+  { import = "astrocommunity.pack.typst" },
   { import = "astrocommunity.pack.python" },
-  { import = "astrocommunity.pack.java" },
   { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.toml" },
 
@@ -33,5 +33,5 @@ return {
   { import = "astrocommunity.recipes.heirline-vscode-winbar" },
   { import = "astrocommunity.recipes.picker-lsp-mappings" },
   -- test
-  { import = "astrocommunity.test.neotest",                         enabled = require("settings").Desktop() },
+  { import = "astrocommunity.test.neotest" },
 }
