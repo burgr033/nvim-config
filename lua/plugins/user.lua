@@ -1,19 +1,11 @@
-local success, config = pcall(require, "machine_override")
 return {
-  {
-    "burgr033/mf-runner.nvim",
-    cmd = { "MFROpen", "MFRRun", "MFREdit" },
-    dependencies = {
-      "folke/snacks.nvim",
-    },
-    opts = {},
-  },
-  {
-    "burgr033/presenterm.nvim",
-    ft = "markdown",
-    opts = {},
-  },
   { "danymat/neogen", config = function() require("neogen").setup { snippet_engine = "nvim" } end },
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    opts = {
+      run_on_start = false,
+    },
+  },
   {
     "Saghen/blink.cmp",
     opts = {

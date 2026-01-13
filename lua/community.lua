@@ -6,21 +6,24 @@ return {
 
   { import = "astrocommunity.completion.blink-cmp" },
 
+  -- diagnostics
   { import = "astrocommunity.diagnostics.tiny-inline-diagnostic-nvim" },
   { import = "astrocommunity.diagnostics.trouble-nvim" },
 
+  -- docs
   { import = "astrocommunity.editing-support.neogen" },
 
   { import = "astrocommunity.file-explorer.oil-nvim" },
 
+  -- rendering
   {
     import = "astrocommunity.markdown-and-latex.render-markdown-nvim",
   },
 
+  -- motions
   { import = "astrocommunity.motion.nvim-surround" },
 
-  -- { import = "astrocommunity.media.vim-wakatime" },
-
+  -- packs
   { import = "astrocommunity.pack.go" },
   { import = "astrocommunity.pack.ansible" },
   { import = "astrocommunity.pack.lua" },
@@ -29,6 +32,7 @@ return {
   { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.toml" },
 
+  -- recipes
   { import = "astrocommunity.recipes.heirline-mode-text-statusline" },
   { import = "astrocommunity.recipes.heirline-vscode-winbar" },
   { import = "astrocommunity.recipes.picker-lsp-mappings" },
