@@ -2,13 +2,13 @@
 return {
   "AstroNvim/astrocommunity",
 
-  --- experiments
-  { import = "astrocommunity.colorscheme.gruvbox-baby" },
-  ---
-
+  -- color
   { import = "astrocommunity.colorscheme.gruvbox-baby" },
 
+  -- completion
   { import = "astrocommunity.completion.blink-cmp" },
+
+  -- runner
   { import = "astrocommunity.code-runner.mf-runner-nvim" },
 
   -- diagnostics
@@ -18,6 +18,7 @@ return {
   -- docs
   { import = "astrocommunity.editing-support.neogen" },
 
+  -- file
   { import = "astrocommunity.file-explorer.oil-nvim" },
 
   -- rendering
