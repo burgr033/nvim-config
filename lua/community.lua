@@ -2,9 +2,14 @@
 return {
   "AstroNvim/astrocommunity",
 
+  --- experiments
+  { import = "astrocommunity.colorscheme.gruvbox-baby" },
+  ---
+
   { import = "astrocommunity.colorscheme.gruvbox-baby" },
 
   { import = "astrocommunity.completion.blink-cmp" },
+  { import = "astrocommunity.code-runner.mf-runner-nvim" },
 
   -- diagnostics
   { import = "astrocommunity.diagnostics.tiny-inline-diagnostic-nvim" },
@@ -31,11 +36,13 @@ return {
   { import = "astrocommunity.pack.python" },
   { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.toml" },
+  { import = "astrocommunity.pack.markdown" },
 
   -- recipes
   { import = "astrocommunity.recipes.heirline-mode-text-statusline" },
   { import = "astrocommunity.recipes.heirline-vscode-winbar" },
   { import = "astrocommunity.recipes.picker-lsp-mappings" },
+
   -- test
   { import = "astrocommunity.test.neotest" },
 }
