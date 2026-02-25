@@ -12,7 +12,6 @@ return {
   { import = "astrocommunity.code-runner.mf-runner-nvim" },
 
   -- diagnostics
-  { import = "astrocommunity.diagnostics.tiny-inline-diagnostic-nvim" },
   { import = "astrocommunity.diagnostics.trouble-nvim" },
 
   -- docs
